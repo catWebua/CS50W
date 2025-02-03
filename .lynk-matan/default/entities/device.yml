@@ -1,0 +1,24 @@
+name: device
+
+description: ''
+
+key_table: demo_dev.tpch_sf1.device
+
+aliases:
+- ''
+
+asset_features: []
+
+derived_features: []
+
+related_assets:
+  demo_dev.tpch_sf1.customer:
+    relationship: one_to_one
+    joins:
+    - name: con
+      default: true
+      type: fields
+      fields:
+      - source: customerid
+        destination: customer_id
+        operator: equal

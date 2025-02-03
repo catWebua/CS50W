@@ -6,55 +6,28 @@ key_table: demo_dev.tpch_sf1.orders
 
 aliases: []
 
-asset_features:
-- asset: demo_dev.tpch_sf1.lineitem
-  filters:
-  - type: field
-    field: line_status
-    operator: is
-    values:
-    - aaa
+features:
+- type: metric
+  name: total_line_items
+  data_type: null
+  asset: demo_dev.tpch_sf1.lineitem
+  join_name: null
+  time_field: null
+  filters: []
+  measure: total_line_items
+- type: formula
+  data_type: string
+  name: ship_priority_name
+  sql: ' iff(ship_priority = 0, ''high'', ''low'')'
   features:
-  - type: metric
-    name: count_lines
-    measure: count_lines
-    data_type: null
-- asset: customer
-  filters:
-  - type: field
-    field: orders_amount
-    operator: is
-    values:
-    - 5
-  features:
-  - type: field
-    name: total_lines
-    fields:
-      name: total_lines
-      alias: null
-      data_type: null
-- asset: customer
-  filters:
-  - type: field
-    field: orders_amount
-    operator: is
-    values:
-    - 6
-  features:
-  - type: field
-    name: orders_amount
-    fields:
-      name: orders_amount
-      alias: null
-      data_type: null
-
-derived_features: []
+  - feature: ship_priority
+    alias: null
 
 related_assets:
   demo_dev.tpch_sf1.lineitem:
-    relationship: one_to_one
+    relationship: one_to_many
     joins:
-    - name: con
+    - name: default
       default: true
       type: fields
       fields:
@@ -62,9 +35,9 @@ related_assets:
         destination: order_id
         operator: equal
   demo_dev.tpch_sf1.orders:
-    relationship: one_to_one
+    relationship: one_to_many
     joins:
-    - name: con
+    - name: default
       default: true
       type: fields
       fields:

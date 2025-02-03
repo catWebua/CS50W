@@ -6,14 +6,20 @@ key_table: demo_dev.tpch_sf1.nation
 
 aliases: []
 
-features: []
+related_entities:
+  customer: 1:n
+  region: n:1
+  supplier: 1:n
+
+asset_features: []
+
+derived_features: []
 
 related_assets:
-
   demo_dev.tpch_sf1.nation:
     relationship: one_to_one
     joins:
-    - name: default
+    - name: con
       default: true
       type: fields
       fields:
