@@ -5,7 +5,6 @@ key: []
 business_key: []
 
 measures:
-- name: total_line_items
-  description: Total line items
+- name: count_lines
+  description: ''
   sql: count(1)
-

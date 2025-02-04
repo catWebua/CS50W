@@ -1,36 +1,24 @@
 name: device
 
-description: the device the user is using to connect to our system. It can be a mobile
-  device or a computer
+description: ''
 
 key_table: demo_dev.tpch_sf1.device
 
-aliases: []
+aliases:
+- ''
 
-features: []
+asset_features: []
+
+derived_features: []
 
 related_assets:
-  
   demo_dev.tpch_sf1.customer:
     relationship: one_to_one
     joins:
-    - name: default
+    - name: con
       default: true
       type: fields
       fields:
-      - source: customerid
-        destination: customer_id
+      - source_field: customerid
+        destination_field: customer_id
         operator: equal
-
-  demo_dev.tpch_sf1.device:
-    relationship: one_to_one
-    joins:
-    - name: default
-      default: true
-      type: fields
-      fields:
-      - source: id
-        destination: id
-        operator: equal
-    
-

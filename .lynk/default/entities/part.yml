@@ -2,34 +2,36 @@ name: part
 
 description: ''
 
-key_table: demo_dev.tpch_sf1.part
+key_table: demo_dev.tpch_sf1.lineitem
 
 aliases: []
+
+related_entities:
+  order: '1:1'
+  supplier: n:n
 
 asset_features: []
 
 derived_features: []
 
 related_assets:
-  
   demo_dev.tpch_sf1.lineitem:
-    relationship: many_to_one
+    relationship: one_to_one
     joins:
-    - name: default
+    - name: con
       default: true
       type: fields
       fields:
-      - source: part_id
-        destination: part_id
+      - source_field: part_id
+        destination_field: part_id
         operator: equal
-  
   demo_dev.tpch_sf1.part:
     relationship: one_to_one
     joins:
-    - name: default
+    - name: con
       default: true
       type: fields
       fields:
-      - source: part_id
-        destination: part_id
+      - source_field: part_id
+        destination_field: part_id
         operator: equal

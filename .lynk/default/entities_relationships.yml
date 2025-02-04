@@ -1,13 +1,7 @@
 relationships:
-  
   customer-device:
-    relationship: one_to_one
-    joins:
-    - name: default
-      default: true
-      type: sql
-      sql: '{source}.customer_id = {destination}.customerid'
-  
+    relationship: one_to_many
+    joins: []
   customer-nation:
     relationship: many_to_one
     joins:
@@ -15,33 +9,13 @@ relationships:
       default: true
       type: fields
       fields:
-      - source: nation_id
-        destination: nation_id
+      - source_field: nation_id
+        destination_field: nation_id
         operator: equal
-  
-  region-nation:
-    relationship: one_to_many
-    joins:
-    - name: default
-      default: true
-      type: fields
-      fields:
-      - source: region_id
-        destination: region_id
-        operator: equal
-  
   customer-order:
     relationship: one_to_many
     joins:
-    - name: default
+    - name: customerOrder
       default: true
       type: sql
       sql: '{source}.customer_id = {destination}.customer_id'
-  
-  supplier-nation:
-    relationship: many_to_one
-    joins:
-    - name: default
-      default: true
-      sql: '{source}.nation_id = {destination}.nation_id'
-      type: sql

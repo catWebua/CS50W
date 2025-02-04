@@ -9,125 +9,108 @@ aliases: []
 
 features:
 - type: first_last
-  name: first_order_ship_priority
   data_type: null
   asset: demo_dev.tpch_sf1.orders
-  join_name: null
-  time_field: null
   filters: []
+  name: first_order_ship_priority
   options:
     method: first
     sort_by: order_date
     field: iff(ship_priority = 0, 'high', 'low')
     data_type: null
 - type: metric
-  name: count_orders
   data_type: null
   asset: demo_dev.tpch_sf1.orders
-  join_name: null
-  time_field: null
   filters: []
+  name: count_orders
   measure: count_orders
 - type: metric
-  name: total_spending
   data_type: null
   asset: demo_dev.tpch_sf1.orders
-  join_name: null
-  time_field: null
   filters: []
+  name: total_spending
   measure: total_order_amout
 - type: first_last
-  name: order_priority_of_last_order
   data_type: null
   asset: demo_dev.tpch_sf1.orders
-  join_name: null
-  time_field: null
   filters: []
+  name: clerk_of_last_order
+  options:
+    method: last
+    sort_by: order_date
+    field: clerk
+    data_type: null
+- type: first_last
+  data_type: null
+  asset: demo_dev.tpch_sf1.orders
+  filters: []
+  name: order_priority_of_last_order
   options:
     method: last
     sort_by: order_date
     field: order_priority
     data_type: null
 - type: metric
-  name: average_price
   data_type: null
   asset: demo_dev.tpch_sf1.orders
-  join_name: null
-  time_field: null
   filters: []
+  name: average_price
   measure: average_price
 - type: metric
-  name: total_order_lines
   data_type: null
   asset: order
-  join_name: null
-  time_field: null
   filters: []
+  name: total_order_lines
   measure: total_order_lines
 - type: first_last
-  name: first_order_date
   data_type: null
   asset: order
-  join_name: null
-  time_field: null
   filters: []
+  name: first_order_date
   options:
     method: first
     sort_by: order_date
     field: order_date
     data_type: null
-- type: first_last
-  name: first_order_date_month
-  data_type: datetime
-  asset: order
-  join_name: null
-  time_field: null
-  filters: []
-  options:
-    method: first
-    sort_by: order_date
-    field: date_trunc('month', order_date)
-    data_type: null
 - type: metric
-  name: average_line_items_per_order
   data_type: null
   asset: order
-  join_name: null
-  time_field: null
   filters: []
+  name: average_line_items_per_order
   measure: average_order_lines
 - type: first_last
-  name: last_order_date
   data_type: null
   asset: order
-  join_name: null
-  time_field: null
   filters: []
+  name: last_order_date
   options:
     method: last
     sort_by: order_date
     field: order_date
     data_type: null
-- type: first_last
-  name: first_order_ship_priority_name
-  data_type: string
-  asset: order
-  join_name: default
-  time_field: null
-  filters: []
-  options:
-    method: first
-    sort_by: order_date
-    field: ship_priority_name
-    data_type: null
 - type: metric
-  name: count_big_orders
-  data_type: number
-  asset: demo_dev.tpch_sf1.orders
-  join_name: all_orders
-  time_field: order_date
+  data_type: null
+  asset: demo_dev.tpch_sf1.device
   filters: []
-  measure: count_big_orders
+  name: m-measure-no-filters
+  measure: m-measure-1
+- type: metric
+  data_type: null
+  asset: demo_dev.tpch_sf1.device
+  filters:
+  - type: field
+    field: customerid
+    operator: is
+    values:
+    - 3
+  name: matan-filters
+  measure: m-measure-1
+- type: metric
+  data_type: null
+  asset: demo_dev.tpch_sf1.device
+  filters: []
+  name: matan-count
+  measure: count_devices
 
 related_assets:
   demo_dev.tpch_sf1.customer:
@@ -135,11 +118,8 @@ related_assets:
     joins:
     - name: default
       default: true
-      type: fields
-      fields:
-      - source: customer_id
-        destination: customer_id
-        operator: equal
+      type: sql
+      sql: '{source}.customer_id = {destination}.customer_id'
   demo_dev.tpch_sf1.orders:
     relationship: one_to_many
     joins:
@@ -150,10 +130,7 @@ related_assets:
   demo_dev.tpch_sf1.device:
     relationship: one_to_one
     joins:
-    - name: customer_device
+    - name: all_devices
       default: true
-      type: fields
-      fields:
-      - source: device_id
-        destination: id
-        operator: equal
+      type: sql
+      sql: '{source}.customer_id = {destination}.customerid'
