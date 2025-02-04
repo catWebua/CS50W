@@ -1,6 +1,0 @@
-entity: customer
-
-measures:
-- name: n
-  description: d
-  sql: s

@@ -1,28 +1,24 @@
-name: nation
+name: device
 
 description: ''
 
-key_table: demo_dev.tpch_sf1.nation
+key_table: demo_dev.tpch_sf1.device
 
-aliases: []
-
-related_entities:
-  customer: 1:n
-  region: n:1
-  supplier: 1:n
+aliases:
+- ''
 
 asset_features: []
 
 derived_features: []
 
 related_assets:
-  demo_dev.tpch_sf1.nation:
+  demo_dev.tpch_sf1.customer:
     relationship: one_to_one
     joins:
     - name: con
       default: true
       type: fields
       fields:
-      - source: nation_id
-        destination: nation_id
+      - source: customerid
+        destination: customer_id
         operator: equal

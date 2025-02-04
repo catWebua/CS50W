@@ -1,0 +1,55 @@
+name: order
+
+description: ''
+
+key_table: demo_dev.tpch_sf1.orders
+
+aliases: []
+
+features:
+- type: metric
+  data_type: null
+  asset: demo_dev.tpch_sf1.lineitem
+  filters: []
+  name: count_lines
+  measure: count_lines
+- type: field
+  data_type: null
+  asset: demo_dev.tpch_sf1.orders
+  filters: []
+  name: order_priority
+  field: order_priority
+- type: metric
+  data_type: null
+  asset: demo_dev.tpch_sf1.lineitem
+  filters: []
+  name: extended_price
+  measure: extended_price
+- type: metric
+  data_type: null
+  asset: lineitem
+  filters: []
+  name: matan-1
+  measure: matan-1
+
+related_assets:
+  demo_dev.tpch_sf1.lineitem:
+    relationship: one_to_many
+    joins:
+    - name: all_line_items
+      default: true
+      type: fields
+      fields:
+      - source: order_id
+        destination: order_id
+        operator: equal
+  demo_dev.tpch_sf1.orders:
+    relationship: one_to_one
+    joins:
+    - name: all_orders
+      default: true
+      type: fields
+      fields:
+      - source: order_id
+        destination: order_id
+        operator: equal

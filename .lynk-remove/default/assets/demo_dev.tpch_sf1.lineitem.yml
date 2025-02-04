@@ -1,0 +1,18 @@
+asset: demo_dev.tpch_sf1.lineitem
+
+business_keys:
+- order_id
+- part_id
+
+description: ''
+
+defaults:
+  time_field: ship_date
+
+measures:
+- name: count_lines
+  description: ''
+  sql: count(1)
+- name: extended_price
+  description: ''
+  sql: sum(extended_price)

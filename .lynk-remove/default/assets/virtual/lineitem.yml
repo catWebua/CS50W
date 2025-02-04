@@ -1,0 +1,8 @@
+entity: lineitem
+
+defaults: null
+
+measures:
+- name: matan-1
+  description: ''
+  sql: count(matan)
