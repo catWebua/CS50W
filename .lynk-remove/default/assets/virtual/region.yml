@@ -1,6 +1,0 @@
-entity: region
-
-measures:
-- name: test1
-  description: ''
-  sql: count(*)

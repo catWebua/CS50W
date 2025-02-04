@@ -1,136 +1,19 @@
 name: customer
 
-description: a customer is a nice person who purchased at least once from our online
-  store
+description: ''
 
 key_table: demo_dev.tpch_sf1.customer
 
 aliases: []
 
-features:
-- type: first_last
-  data_type: null
-  asset: demo_dev.tpch_sf1.orders
-  filters: []
-  name: first_order_ship_priority
-  options:
-    method: first
-    sort_by: order_date
-    field: iff(ship_priority = 0, 'high', 'low')
-    data_type: null
-- type: metric
-  data_type: null
-  asset: demo_dev.tpch_sf1.orders
-  filters: []
-  name: count_orders
-  measure: count_orders
-- type: metric
-  data_type: null
-  asset: demo_dev.tpch_sf1.orders
-  filters: []
-  name: total_spending
-  measure: total_order_amout
-- type: first_last
-  data_type: null
-  asset: demo_dev.tpch_sf1.orders
-  filters: []
-  name: clerk_of_last_order
-  options:
-    method: last
-    sort_by: order_date
-    field: clerk
-    data_type: null
-- type: first_last
-  data_type: null
-  asset: demo_dev.tpch_sf1.orders
-  filters: []
-  name: order_priority_of_last_order
-  options:
-    method: last
-    sort_by: order_date
-    field: order_priority
-    data_type: null
-- type: metric
-  data_type: null
-  asset: demo_dev.tpch_sf1.orders
-  filters: []
-  name: average_price
-  measure: average_price
-- type: metric
-  data_type: null
-  asset: order
-  filters: []
-  name: total_order_lines
-  measure: total_order_lines
-- type: first_last
-  data_type: null
-  asset: order
-  filters: []
-  name: first_order_date
-  options:
-    method: first
-    sort_by: order_date
-    field: order_date
-    data_type: null
-- type: metric
-  data_type: null
-  asset: order
-  filters: []
-  name: average_line_items_per_order
-  measure: average_order_lines
-- type: first_last
-  data_type: null
-  asset: order
-  filters: []
-  name: last_order_date
-  options:
-    method: last
-    sort_by: order_date
-    field: order_date
-    data_type: null
-- type: metric
-  data_type: null
-  asset: demo_dev.tpch_sf1.device
-  filters: []
-  name: m-measure-no-filters
-  measure: m-measure-1
-- type: metric
-  data_type: null
-  asset: demo_dev.tpch_sf1.device
-  filters:
-  - type: field
-    field: customerid
-    operator: is
-    values:
-    - 3
-  name: matan-filters
-  measure: m-measure-1
-- type: metric
-  data_type: null
-  asset: demo_dev.tpch_sf1.device
-  filters: []
-  name: matan-count
-  measure: count_devices
+asset_features: []
+
+derived_features: []
 
 related_assets:
   demo_dev.tpch_sf1.customer:
-    relationship: one_to_one
-    joins:
-    - name: default
-      default: true
-      type: sql
-      sql: '{source}.customer_id = {destination}.customer_id'
-  demo_dev.tpch_sf1.orders:
-    relationship: one_to_many
-    joins:
-    - name: all_orders
-      default: true
-      type: sql
-      sql: '{source}.customer_id = {destination}.customer_id'
-  demo_dev.tpch_sf1.device:
-    relationship: one_to_one
-    joins:
-    - name: all_devices
-      default: true
-      type: sql
-      sql: '{source}.customer_id = {destination}.customerid'
+    type: fields
+    fields:
+    - entity_field: customer_id
+      asset_field: customer_id
+      operator: equal

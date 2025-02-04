@@ -6,6 +6,10 @@ key_table: demo_dev.tpch_sf1.lineitem
 
 aliases: []
 
+related_entities:
+  order: '1:1'
+  supplier: n:n
+
 asset_features: []
 
 derived_features: []

@@ -1,9 +1,0 @@
-entity: order
-
-measures:
-- name: total_order_lines
-  description: total order lines
-  sql: sum(total_line_items)
-- name: average_order_lines
-  description: average order lines
-  sql: avg(total_line_items)

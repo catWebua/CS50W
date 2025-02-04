@@ -6,6 +6,11 @@ key_table: demo_dev.tpch_sf1.nation
 
 aliases: []
 
+related_entities:
+  customer: 1:n
+  region: n:1
+  supplier: 1:n
+
 asset_features: []
 
 derived_features: []

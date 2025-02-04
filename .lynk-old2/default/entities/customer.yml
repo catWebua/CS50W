@@ -1,0 +1,63 @@
+name: customer
+
+description: a customer is a nice person who purchased at least once from our online
+  store
+
+key_table: demo_dev.tpch_sf1.customer
+
+aliases:
+- user
+- person
+
+related_entities:
+  order: 1:n
+  nation: '1:1'
+  device: '1:1'
+
+asset_features:
+- asset: demo_dev.tpch_sf1.orders
+  filters: null
+  features:
+  - name: first_order_ship_priority
+    type: first_last
+    options:
+      method: first
+      sort_by: order_date
+      field: iff(ship_priority = 0, 'high', 'low')
+  - name: count_orders
+    type: metric
+    measure: count_orders
+- asset: demo_dev.tpch_sf1.orders
+  filters: null
+  features:
+  - name: total order amout
+    type: metric
+    measure: total order amout
+- asset: demo_dev.tpch_sf1.orders
+  filters: null
+  features:
+  - name: order_lines_per_customer
+    type: metric
+    measure: order_lines_per_customer
+
+derived_features: []
+
+related_assets:
+  demo_dev.tpch_sf1.customer:
+    type: fields
+    fields:
+    - entity_field: customer_id
+      asset_field: customer_id
+      operator: equal
+  demo_dev.tpch_sf1.orders:
+    type: fields
+    fields:
+    - entity_field: customer_id
+      asset_field: customer_id
+      operator: equal
+  demo_dev.tpch_sf1.nation:
+    type: fields
+    fields:
+    - entity_field: nation_id
+      asset_field: nation_id
+      operator: equal

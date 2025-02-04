@@ -1,10 +1,14 @@
-name: part
+name: order
 
 description: ''
 
 key_table: demo_dev.tpch_sf1.lineitem
 
 aliases: []
+
+related_entities:
+  part: '1:1'
+  supplier: n:n
 
 asset_features: []
 
@@ -14,12 +18,12 @@ related_assets:
   demo_dev.tpch_sf1.lineitem:
     type: fields
     fields:
-    - entity_field: part_id
-      asset_field: part_id
+    - entity_field: order_id
+      asset_field: order_id
       operator: equal
-  demo_dev.tpch_sf1.part:
+  demo_dev.tpch_sf1.orders:
     type: fields
     fields:
-    - entity_field: part_id
-      asset_field: part_id
+    - entity_field: order_id
+      asset_field: order_id
       operator: equal

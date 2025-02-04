@@ -1,0 +1,19 @@
+asset: demo_dev.tpch_sf1.orders
+
+key: []
+
+business_key: []
+
+measures:
+- name: total order amout
+  description: ''
+  sql: sum(total_price)
+- name: count_orders
+  description: number of orders
+  sql: count(1)
+- name: average_sales
+  description: ''
+  sql: avg(total_sales)
+- name: order_lines_per_customer
+  description: order lines per customer
+  sql: sum(lines_per_order)

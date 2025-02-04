@@ -6,6 +6,9 @@ key_table: demo_dev.tpch_sf1.region
 
 aliases: []
 
+related_entities:
+  nation: 1:n
+
 asset_features: []
 
 derived_features: []

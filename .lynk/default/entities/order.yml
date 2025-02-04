@@ -2,72 +2,24 @@ name: order
 
 description: ''
 
-key_table: demo_dev.tpch_sf1.orders
+key_table: demo_dev.tpch_sf1.lineitem
 
 aliases: []
 
-asset_features:
-- asset: demo_dev.tpch_sf1.lineitem
-  filters:
-  - type: field
-    field: line_status
-    operator: is
-    values:
-    - aaa
-  features:
-  - type: metric
-    name: count_lines
-    measure: count_lines
-    data_type: null
-- asset: customer
-  filters:
-  - type: field
-    field: orders_amount
-    operator: is
-    values:
-    - 5
-  features:
-  - type: field
-    name: total_lines
-    fields:
-      name: total_lines
-      alias: null
-      data_type: null
-- asset: customer
-  filters:
-  - type: field
-    field: orders_amount
-    operator: is
-    values:
-    - 6
-  features:
-  - type: field
-    name: orders_amount
-    fields:
-      name: orders_amount
-      alias: null
-      data_type: null
+asset_features: []
 
 derived_features: []
 
 related_assets:
-  demo_dev.tpch_sf1.lineitem:
-    relationship: one_to_one
-    joins:
-    - name: con
-      default: true
-      type: fields
-      fields:
-      - source_field: order_id
-        destination_field: order_id
-        operator: equal
   demo_dev.tpch_sf1.orders:
-    relationship: one_to_one
-    joins:
-    - name: con
-      default: true
-      type: fields
-      fields:
-      - source_field: order_id
-        destination_field: order_id
-        operator: equal
+    type: fields
+    fields:
+    - entity_field: order_id
+      asset_field: order_id
+      operator: equal
+  demo_dev.tpch_sf1.lineitem:
+    type: fields
+    fields:
+    - entity_field: order_id
+      asset_field: order_id
+      operator: equal

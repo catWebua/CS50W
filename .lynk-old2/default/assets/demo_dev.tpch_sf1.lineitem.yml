@@ -1,0 +1,10 @@
+asset: demo_dev.tpch_sf1.lineitem
+
+key: []
+
+business_key: []
+
+measures:
+- name: lines_per_order
+  description: Order lines per order
+  sql: count(*)

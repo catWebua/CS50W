@@ -1,0 +1,23 @@
+name: t1
+
+description: i am great
+
+key_table: demo_dev.tpch_sf1.customer
+
+aliases:
+- t
+
+related_entities:
+  supplier: '1:1'
+
+asset_features: []
+
+derived_features: []
+
+related_assets:
+  demo_dev.tpch_sf1.device:
+    type: fields
+    fields:
+    - entity_field: comment
+      asset_field: id
+      operator: equal
