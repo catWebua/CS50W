@@ -8,35 +8,26 @@ aliases: []
 
 features:
 - type: metric
+  name: total_line_items
   data_type: null
   asset: demo_dev.tpch_sf1.lineitem
+  join_name: null
+  time_field: null
   filters: []
-  name: count_lines
-  measure: count_lines
-- type: field
-  data_type: null
-  asset: demo_dev.tpch_sf1.orders
-  filters: []
-  name: order_priority
-  field: order_priority
-- type: metric
-  data_type: null
-  asset: demo_dev.tpch_sf1.lineitem
-  filters: []
-  name: extended_price
-  measure: extended_price
-- type: metric
-  data_type: null
-  asset: lineitem
-  filters: []
-  name: matan-1
-  measure: matan-1
+  measure: total_line_items
+- type: formula
+  data_type: string
+  name: ship_priority_name
+  sql: ' iff(ship_priority = 0, ''high'', ''low'')'
+  features:
+  - feature: ship_priority
+    alias: null
 
 related_assets:
   demo_dev.tpch_sf1.lineitem:
     relationship: one_to_many
     joins:
-    - name: all_line_items
+    - name: default
       default: true
       type: fields
       fields:
@@ -44,9 +35,9 @@ related_assets:
         destination: order_id
         operator: equal
   demo_dev.tpch_sf1.orders:
-    relationship: one_to_one
+    relationship: one_to_many
     joins:
-    - name: all_orders
+    - name: default
       default: true
       type: fields
       fields:

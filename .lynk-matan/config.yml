@@ -1,5 +1,5 @@
 dim_dates:
-  ref: demo_dev.TPCH_SF1.dim_dates
+  ref: demo_dev.tpch_sf1.dim_dates
   fields:
     day: date_day
     week: date_week

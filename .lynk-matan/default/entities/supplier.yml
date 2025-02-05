@@ -6,24 +6,30 @@ key_table: demo_dev.tpch_sf1.supplier
 
 aliases: []
 
-features: []
+related_entities:
+  part: n:n
+  order: n:n
+  nation: n:1
+
+asset_features: []
+
+derived_features: []
 
 related_assets:
   demo_dev.tpch_sf1.supplier:
     relationship: one_to_one
     joins:
-    - name: all_suppliers
+    - name: con
       default: true
       type: fields
       fields:
       - source: supplier_id
         destination: supplier_id
         operator: equal
-
   demo_dev.tpch_sf1.partsupp:
-    relationship: one_to_many
+    relationship: one_to_one
     joins:
-    - name: all_part_suppliers
+    - name: con
       default: true
       type: fields
       fields:

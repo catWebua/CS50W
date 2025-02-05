@@ -1,0 +1,23 @@
+asset: demo_dev.tpch_sf1.orders
+
+key: []
+
+business_key:
+- order_id
+
+defaults:
+  time_field: order_date
+
+measures:
+- name: orders_amount
+  description: ''
+  sql: sum(total_price)
+- name: total_order_amout
+  description: ''
+  sql: sum(total_price)
+- name: count_orders
+  description: number of orders
+  sql: count(1)
+- name: average_price
+  description: ''
+  sql: average(total_price)

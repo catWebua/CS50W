@@ -1,0 +1,23 @@
+asset: demo_dev.tpch_sf1.orders
+
+business_keys:
+- order_id
+
+description: ''
+
+defaults:
+  time_field: order_date
+
+measures:
+- name: total_order_amout
+  description: ''
+  sql: sum(total_price)
+- name: count_orders
+  description: number of orders
+  sql: count(1)
+- name: count_big_orders
+  description: number of orders with total price more than 50 usd
+  sql: sum(IFF(total_price>1000, 1, 0))
+- name: average_price
+  description: ''
+  sql: average(total_price)

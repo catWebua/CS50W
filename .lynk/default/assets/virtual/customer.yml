@@ -2,4 +2,10 @@ entity: customer
 
 defaults: null
 
-measures: []
+measures:
+- name: distinct_customers_from_asset
+  description: ''
+  sql: count(distinct customer_id)
+- name: test-virtual-measure
+  description: ''
+  sql: matan_virtual

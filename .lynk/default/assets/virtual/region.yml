@@ -1,3 +1,6 @@
 entity: region
 
-measures: []
+measures:
+- name: test1
+  description: ''
+  sql: count(*)

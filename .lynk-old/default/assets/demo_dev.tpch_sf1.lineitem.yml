@@ -1,0 +1,11 @@
+asset: demo_dev.tpch_sf1.lineitem
+
+key: []
+
+business_key: []
+
+measures:
+- name: total_line_items
+  description: Total line items
+  sql: count(1)
+
