@@ -287,12 +287,18 @@ features:
 - type: formula
   data_type: null
   name: formula_test_alias
-  sql: orders_amount / devices_per_customer
+  sql: orders_amount / devices_per_customer / comment / phone / avg_order_amount
   features:
   - feature: orders_amount
     alias: null
   - feature: count_devices
     alias: devices_per_customer
+  - feature: comment
+    alias: null
+  - feature: phone
+    alias: null
+  - feature: avg_order_amount
+    alias: null
 - type: metric
   data_type: null
   asset: demo_dev.tpch_sf1.lineitem
