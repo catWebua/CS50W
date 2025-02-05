@@ -233,11 +233,13 @@ features:
 - type: formula
   data_type: null
   name: avg_order_amount
-  sql: orders_amount / count_orders
+  sql: orders_amount / count_orders / device_not_windows
   features:
   - feature: orders_amount
     alias: null
   - feature: count_orders
+    alias: null
+  - feature: device_not_windows
     alias: null
 - type: formula
   data_type: null
