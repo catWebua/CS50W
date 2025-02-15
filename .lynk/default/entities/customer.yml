@@ -8,7 +8,7 @@ aliases: []
 
 features:
 - type: metric
-  data_type: null
+  data_type: alexi_data-type
   time_field: matan_time
   asset: demo_dev.tpch_sf1.orders
   filters: []
