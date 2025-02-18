@@ -446,6 +446,14 @@ features:
   time_field: receipt_date
   filters: []
   measure: extended_price
+- type: metric
+  name: count_lines
+  data_type: datetime
+  asset: demo_dev.tpch_sf1.lineitem
+  join_name: all_lineitems
+  time_field: commit_date
+  filters: []
+  measure: count_lines
 
 related_assets:
   demo_dev.tpch_sf1.customer:
