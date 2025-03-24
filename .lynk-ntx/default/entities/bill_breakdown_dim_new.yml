@@ -1,0 +1,148 @@
+name: bill_breakdown_dim_new
+
+description: ''
+
+key_table: networx_src.networx_global.ng_bill_breakdown
+
+aliases: []
+
+features:
+- type: field
+  name: bill_breakdown_id
+  data_type: string
+  asset: networx_src.networx_global.ng_bill_breakdown
+  join_name: null
+  time_field: null
+  filters: []
+  field: id
+- type: field
+  name: bill_amount
+  data_type: string
+  asset: bill
+  join_name: null
+  time_field: null
+  filters: []
+  field: amount
+- type: field
+  name: agent_id
+  data_type: string
+  asset: bill
+  join_name: null
+  time_field: null
+  filters: []
+  field: agent_id
+- type: field
+  name: charge_type
+  data_type: string
+  asset: bill
+  join_name: null
+  time_field: null
+  filters: []
+  field: charge_type
+- type: field
+  name: charged_at
+  data_type: string
+  asset: bill
+  join_name: null
+  time_field: null
+  filters: []
+  field: charged_at
+- type: field
+  name: created_at
+  data_type: string
+  asset: bill
+  join_name: null
+  time_field: null
+  filters: []
+  field: created_at
+- type: field
+  name: deactivated_at
+  data_type: string
+  asset: bill
+  join_name: null
+  time_field: null
+  filters: []
+  field: deactivated_at
+- type: field
+  name: declined_at
+  data_type: string
+  asset: bill
+  join_name: null
+  time_field: null
+  filters: []
+  field: declined_at
+- type: field
+  name: is_recurring
+  data_type: string
+  asset: bill
+  join_name: null
+  time_field: null
+  filters: []
+  field: is_recurring
+- type: field
+  name: sale_activated_at
+  data_type: string
+  asset: bill
+  join_name: null
+  time_field: null
+  filters: []
+  field: sale_activated_at
+- type: field
+  name: sale_id
+  data_type: string
+  asset: bill
+  join_name: null
+  time_field: null
+  filters: []
+  field: sale_id
+- type: field
+  name: _is_refund
+  data_type: string
+  asset: bill
+  join_name: null
+  time_field: null
+  filters: []
+  field: is_refund
+- type: field
+  name: item_id
+  data_type: string
+  asset: bill
+  join_name: null
+  time_field: null
+  filters: []
+  field: item_id
+- type: field
+  name: item_id_name
+  data_type: string
+  asset: bill
+  join_name: null
+  time_field: null
+  filters: []
+  field: item_id_name
+- type: formula
+  data_type: string
+  name: is_refund
+  sql: coalesce({_is_refund}, 0)
+  features:
+  - feature: _is_refund
+    alias: null
+- type: formula
+  data_type: string
+  name: client_id
+  sql: iff({item_id_name} = 'client', {item_id}, null)
+  features:
+  - feature: item_id
+    alias: null
+  - feature: item_id_name
+    alias: null
+
+related_assets:
+  networx_src.networx_global.ng_bill_breakdown:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: id
+        destination: id
+        operator: equal

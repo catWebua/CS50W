@@ -1,0 +1,193 @@
+name: cac
+
+description: ''
+
+key_table: networx_prod.finance.cac_lifetime
+
+aliases: []
+
+features:
+- type: formula
+  data_type: string
+  name: marketing_cac_costs
+  sql: case when {cost_type} = 'marketing' then coalesce({amount}, 0) end
+  features:
+  - feature: amount
+    alias: null
+  - feature: cost_type
+    alias: null
+- type: formula
+  data_type: string
+  name: agent_cac_costs
+  sql: case when {cost_type} = 'agent' then coalesce({amount}, 0) end
+  features:
+  - feature: amount
+    alias: null
+  - feature: cost_type
+    alias: null
+- type: formula
+  data_type: string
+  name: manager_cac_costs
+  sql: case when {cost_type} = 'manager' then coalesce({amount}, 0) end
+  features:
+  - feature: amount
+    alias: null
+  - feature: cost_type
+    alias: null
+- type: formula
+  data_type: string
+  name: bonus_cac_costs
+  sql: case when {agent_earning_type} = 'Bonus' then coalesce({amount}, 0) end
+  features:
+  - feature: agent_earning_type
+    alias: null
+  - feature: amount
+    alias: null
+- type: formula
+  data_type: string
+  name: commission_cac_costs
+  sql: case when {agent_earning_type} = 'Commission' then coalesce({amount}, 0) end
+  features:
+  - feature: agent_earning_type
+    alias: null
+  - feature: amount
+    alias: null
+- type: formula
+  data_type: string
+  name: non_bonus_commission_cac_costs
+  sql: case when {cost_type} in('manager', 'agent') and coalesce({agent_earning_type},'')
+    not in ('Bonus', 'Commission') then coalesce({amount}, 0) end
+  features:
+  - feature: agent_earning_type
+    alias: null
+  - feature: amount
+    alias: null
+  - feature: cost_type
+    alias: null
+- type: formula
+  data_type: string
+  name: amount_plus
+  sql: coalesce({amount}, 0) + coalesce(sum(case when {sale_id} is null then {amount} end)
+    over(partition by {cost_type}, {agent_earning_type}, {cost_date}), 0) / nullif(count({sale_id})
+    over(partition by {cost_type}, {agent_earning_type}, {cost_date}), 0)
+  features:
+  - feature: agent_earning_type
+    alias: null
+  - feature: amount
+    alias: null
+  - feature: cost_date
+    alias: null
+  - feature: cost_type
+    alias: null
+  - feature: sale_id
+    alias: null
+- type: formula
+  data_type: string
+  name: marketing_cac_including_detached_costs
+  sql: case when {cost_type} = 'marketing' then {amount_plus} end
+  features:
+  - feature: amount_plus
+    alias: null
+  - feature: cost_type
+    alias: null
+- type: formula
+  data_type: string
+  name: agent_cac_including_detached_costs
+  sql: case when {cost_type} = 'agent' then {amount_plus} end
+  features:
+  - feature: amount_plus
+    alias: null
+  - feature: cost_type
+    alias: null
+- type: formula
+  data_type: string
+  name: manager_cac_including_detached_costs
+  sql: case when {cost_type} = 'manager' then {amount_plus} end
+  features:
+  - feature: amount_plus
+    alias: null
+  - feature: cost_type
+    alias: null
+- type: formula
+  data_type: string
+  name: bonus_cac_including_detached_costs
+  sql: case when {agent_earning_type} = 'Bonus' then {amount_plus} end
+  features:
+  - feature: amount_plus
+    alias: null
+  - feature: agent_earning_type
+    alias: null
+- type: formula
+  data_type: string
+  name: commission_cac_including_detached_costs
+  sql: case when {agent_earning_type} = 'Commission' then {amount_plus} end
+  features:
+  - feature: amount_plus
+    alias: null
+  - feature: agent_earning_type
+    alias: null
+- type: formula
+  data_type: string
+  name: non_bonus_commission_cac_including_detached_costs
+  sql: case when {cost_type} in('manager', 'agent') and coalesce({agent_earning_type},'')
+    not in ('Bonus', 'Commission') then {amount_plus} end
+  features:
+  - feature: amount_plus
+    alias: null
+  - feature: agent_earning_type
+    alias: null
+  - feature: cost_type
+    alias: null
+
+related_assets:
+  networx_prod.finance.cac_lifetime:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: agent_earning_type
+        destination: agent_earning_type
+        operator: equal
+      - source: agent_group
+        destination: agent_group
+        operator: equal
+      - source: agent_id
+        destination: agent_id
+        operator: equal
+      - source: agent_name
+        destination: agent_name
+        operator: equal
+      - source: agent_pay_id
+        destination: agent_pay_id
+        operator: equal
+      - source: agent_team
+        destination: agent_team
+        operator: equal
+      - source: agent_unit
+        destination: agent_unit
+        operator: equal
+      - source: amount
+        destination: amount
+        operator: equal
+      - source: campaign_id
+        destination: campaign_id
+        operator: equal
+      - source: cost_date
+        destination: cost_date
+        operator: equal
+      - source: cost_type
+        destination: cost_type
+        operator: equal
+      - source: inquiry_created_network
+        destination: inquiry_created_network
+        operator: equal
+      - source: inquiry_ticket_id
+        destination: inquiry_ticket_id
+        operator: equal
+      - source: sale_id
+        destination: sale_id
+        operator: equal
+      - source: tracker_type
+        destination: tracker_type
+        operator: equal

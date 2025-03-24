@@ -1,0 +1,157 @@
+name: affiliate
+
+description: ''
+
+key_table: networx_prod.core.affiliate_dim
+
+aliases: []
+
+features:
+- type: metric
+  name: total_payments
+  data_type: number
+  asset: networx_src.networx_global.ng_affiliate_payment
+  join_name: null
+  time_field: null
+  filters: []
+  measure: total_payments
+- type: formula
+  data_type: string
+  name: first_name__s
+  sql: coalesce({first_name}, '')
+  features:
+  - feature: first_name
+    alias: null
+- type: formula
+  data_type: string
+  name: last_name__s
+  sql: coalesce({last_name}, '')
+  features:
+  - feature: last_name
+    alias: null
+- type: formula
+  data_type: string
+  name: full_name__s
+  sql: coalesce({full_name}, '')
+  features:
+  - feature: full_name
+    alias: null
+- type: formula
+  data_type: string
+  name: address__s
+  sql: coalesce({address}, '')
+  features:
+  - feature: address
+    alias: null
+- type: formula
+  data_type: string
+  name: address__s
+  sql: coalesce({address}, '')
+  features:
+  - feature: address
+    alias: null
+- type: formula
+  data_type: string
+  name: address2__s
+  sql: coalesce({address2}, '')
+  features:
+  - feature: address2
+    alias: null
+- type: formula
+  data_type: string
+  name: company__s
+  sql: coalesce({company}, '')
+  features:
+  - feature: company
+    alias: null
+- type: formula
+  data_type: string
+  name: website__s
+  sql: coalesce({website}, '')
+  features:
+  - feature: website
+    alias: null
+- type: formula
+  data_type: string
+  name: website__s
+  sql: coalesce({website}, '')
+  features:
+  - feature: website
+    alias: null
+- type: formula
+  data_type: string
+  name: phone__s
+  sql: coalesce({phone}, '')
+  features:
+  - feature: phone
+    alias: null
+- type: formula
+  data_type: string
+  name: note__s
+  sql: coalesce({note}, '')
+  features:
+  - feature: note
+    alias: null
+- type: formula
+  data_type: string
+  name: note__s
+  sql: coalesce({note}, '')
+  features:
+  - feature: note
+    alias: null
+
+related_assets:
+  networx_src.networx_global.ng_affiliate_payment:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: affiliate_id
+        destination: affiliate_id
+        operator: equal
+  networx_prod.core.affiliate_monthly:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: affiliate_id
+        destination: affiliate_id
+        operator: equal
+  networx_prod.core.affiliate_dim:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: affiliate_id
+        destination: affiliate_id
+        operator: equal
+  networx_src.networx_global.ng_aff_ping_percents:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: affiliate_id
+        destination: affiliate_id
+        operator: equal
+  networx_src.networx_global.ng_affiliate_partners:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: affiliate_id
+        destination: affiliate_id
+        operator: equal
+  networx_src.networx_global.ng_affiliate_grades:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: affiliate_id
+        destination: affiliate_id
+        operator: equal

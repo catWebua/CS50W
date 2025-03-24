@@ -1,0 +1,101 @@
+name: campaign
+
+description: ''
+
+key_table: networx_prod.core.campaigns_dim
+
+aliases: []
+
+related_assets:
+  networx_prod.marketing.google_campaign_day_cohort_daily:
+    relationship: one_to_many
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: campaign_id
+        destination: campaign_id
+        operator: equal
+  networx_prod.marketing.google_campaign_day_cohort_dim:
+    relationship: one_to_many
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: campaign_id
+        destination: campaign_id
+        operator: equal
+  networx_src.networx_global.ng_cpc_campaign_mapping:
+    relationship: one_to_many
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: campaign_id
+        destination: campaign_id
+        operator: equal
+  networx_src.networx_global.ng_cpc_campaign:
+    relationship: one_to_one
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: campaign_id
+        destination: campaign_id
+        operator: equal
+  networx_prod.marketing.google_keywords_day_cohorts_daily:
+    relationship: one_to_many
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: campaign_id
+        destination: campaign_id
+        operator: equal
+  networx_src.google_ads.gads_campaign_performance:
+    relationship: one_to_many
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: campaign_id
+        destination: campaign_id
+        operator: equal
+  networx_src.google_ads.gads_campaigns_metadata:
+    relationship: one_to_one
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: campaign_id
+        destination: campaign_id
+        operator: equal
+  networx_src.networx_global.ng_cpc_click_costs:
+    relationship: one_to_many
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: campaign_id
+        destination: campaign_id
+        operator: equal
+  networx_prod.marketing.google_campaign_daily:
+    relationship: one_to_many
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: campaign_id
+        destination: campaign_id
+        operator: equal
+  networx_prod.core.campaigns_dim:
+    relationship: one_to_one
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: campaign_id
+        destination: campaign_id
+        operator: equal
+
+features: []

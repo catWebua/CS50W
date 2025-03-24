@@ -1,0 +1,675 @@
+name: bill
+
+description: ''
+
+key_table: networx_prod.finance.bill_dim
+
+aliases: []
+
+features:
+- type: field
+  name: is_post_sale_bill
+  data_type: bool
+  asset: sale
+  join_name: post_sale
+  time_field: null
+  filters: []
+  field: iff(sale_id, true, false)
+- type: metric
+  name: payment_attempt_count
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  measure: attempts_count
+- type: first_last
+  name: first_payment_attempt_amount
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: first
+    sort_by: created_at
+    field: amount
+    data_type: null
+- type: first_last
+  name: first_attempt_billing_system_type
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: first
+    sort_by: created_at
+    field: billing_system_type
+    data_type: null
+- type: first_last
+  name: first_payment_attempt_ts
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: first
+    sort_by: created_at
+    field: created_at
+    data_type: null
+- type: first_last
+  name: first_payment_attempt_display_status
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: first
+    sort_by: created_at
+    field: display_status
+    data_type: null
+- type: first_last
+  name: first_payment_attempt_error_message
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: first
+    sort_by: created_at
+    field: error_message
+    data_type: null
+- type: first_last
+  name: first_payment_attempt_method_display_name
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: first
+    sort_by: created_at
+    field: method_display_name
+    data_type: null
+- type: first_last
+  name: first_attempt_method_id
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: first
+    sort_by: created_at
+    field: method_id
+    data_type: null
+- type: first_last
+  name: first_attempt_method_unique_name
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: first
+    sort_by: created_at
+    field: method_unique_name
+    data_type: null
+- type: first_last
+  name: first_attempt_payment_id
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: first
+    sort_by: created_at
+    field: payment_id
+    data_type: null
+- type: first_last
+  name: first_attempt_is_primary_method
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: first
+    sort_by: created_at
+    field: payment_method_is_primary
+    data_type: null
+- type: first_last
+  name: first_attempt_payment_type_name
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: first
+    sort_by: created_at
+    field: payment_type_name
+    data_type: null
+- type: first_last
+  name: first_attempt_processor_status
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: first
+    sort_by: created_at
+    field: processor_status
+    data_type: null
+- type: first_last
+  name: last_payment_attempt_amount
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: created_at
+    field: amount
+    data_type: null
+- type: first_last
+  name: last_attempt_billing_system_type
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: created_at
+    field: billing_system_type
+    data_type: null
+- type: first_last
+  name: last_payment_attempt_ts
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: created_at
+    field: created_at
+    data_type: null
+- type: first_last
+  name: last_payment_attempt_display_status
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: created_at
+    field: display_status
+    data_type: null
+- type: first_last
+  name: last_payment_attempt_error_message
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: created_at
+    field: error_message
+    data_type: null
+- type: first_last
+  name: last_payment_attempt_method_display_name
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: created_at
+    field: method_display_name
+    data_type: null
+- type: first_last
+  name: last_attempt_method_id
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: created_at
+    field: method_id
+    data_type: null
+- type: first_last
+  name: last_attempt_method_unique_name
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: created_at
+    field: method_unique_name
+    data_type: null
+- type: first_last
+  name: last_attempt_payment_id
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: created_at
+    field: payment_id
+    data_type: null
+- type: first_last
+  name: last_attempt_is_primary_method
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: created_at
+    field: payment_method_is_primary
+    data_type: null
+- type: first_last
+  name: last_attempt_payment_type_name
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: created_at
+    field: payment_type_name
+    data_type: null
+- type: first_last
+  name: last_attempt_processor_status
+  data_type: null
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: created_at
+    field: processor_status
+    data_type: null
+- type: first_last
+  name: chargeback_agent_id
+  data_type: null
+  asset: networx_prod.finance.chargeback_dim
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: chargeback_open_date
+    field: chargeback_agent_id
+    data_type: null
+- type: first_last
+  name: chargeback_agent_name
+  data_type: null
+  asset: networx_prod.finance.chargeback_dim
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: chargeback_open_date
+    field: chargeback_agent_name
+    data_type: null
+- type: first_last
+  name: chargeback_category_name
+  data_type: null
+  asset: networx_prod.finance.chargeback_dim
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: chargeback_open_date
+    field: chargeback_category_name
+    data_type: null
+- type: first_last
+  name: last_chargeback_closed_date
+  data_type: null
+  asset: networx_prod.finance.chargeback_dim
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: chargeback_open_date
+    field: chargeback_closed_date
+    data_type: null
+- type: first_last
+  name: last_chargeback_open_date
+  data_type: null
+  asset: networx_prod.finance.chargeback_dim
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: chargeback_open_date
+    field: chargeback_open_date
+    data_type: null
+- type: first_last
+  name: last_chargeback_resolution
+  data_type: null
+  asset: networx_prod.finance.chargeback_dim
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: chargeback_open_date
+    field: chargeback_resolution
+    data_type: null
+- type: first_last
+  name: chargeback_ticket_id
+  data_type: null
+  asset: networx_prod.finance.chargeback_dim
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: chargeback_open_date
+    field: chargeback_ticket_id
+    data_type: null
+- type: first_last
+  name: payment_id
+  data_type: null
+  asset: networx_prod.finance.chargeback_dim
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: chargeback_open_date
+    field: payment_id
+    data_type: null
+- type: first_last
+  name: deactivated_by
+  data_type: null
+  asset: networx_src.networx_global.ng_item_history
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: history_type_id
+    operator: is
+    values:
+    - '67'
+    - '48'
+  - type: field
+    field: field_name
+    operator: is
+    values:
+    - deactivated_at
+  options:
+    method: last
+    sort_by: created_at
+    field: user_type
+    data_type: null
+- type: first_last
+  name: collected_agent_id
+  data_type: null
+  asset: networx_src.networx_global.ng_item_history
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: history_type_id
+    operator: is
+    values:
+    - '55'
+  - type: field
+    field: user_table_id
+    operator: is
+    values:
+    - '30'
+  options:
+    method: first
+    sort_by: created_at
+    field: user_id
+    data_type: null
+- type: formula
+  data_type: null
+  name: hours_from_first_attempts_to_last_attempt
+  sql: datediff('hour', {first_payment_attempt_ts}, {last_payment_attempt_ts})
+  features:
+  - feature: first_payment_attempt_ts
+    alias: null
+  - feature: last_payment_attempt_ts
+    alias: null
+- type: metric
+  name: chargeback_attempts
+  data_type: number
+  asset: networx_prod.finance.chargeback_dim
+  join_name: null
+  time_field: null
+  filters: []
+  measure: chargeback_attempts
+- type: metric
+  name: discount_charge_agent
+  data_type: number
+  asset: networx_src.networx_global.ng_clients_history
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: type
+    operator: is
+    values:
+    - '125'
+  - type: field
+    field: misc_id
+    operator: is_set
+    values: null
+  measure: discount_charge_agent
+- type: metric
+  name: discount_approve_date
+  data_type: number
+  asset: networx_src.networx_global.ng_clients_history
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: misc_id
+    operator: is_set
+    values: null
+  - type: field
+    field: type
+    operator: is
+    values:
+    - '125'
+  measure: discount_approve_date
+- type: metric
+  name: attempts_count
+  data_type: number
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  measure: attempts_count
+- type: metric
+  name: has_invoice
+  data_type: number
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  measure: has_invoice
+- type: metric
+  name: first_attempt_ts
+  data_type: number
+  asset: networx_src.networx_global.ng_payments
+  join_name: null
+  time_field: null
+  filters: []
+  measure: first_attempt_ts
+- type: first_last
+  name: chargeback_agent_opened_id
+  data_type: string
+  asset: networx_prod.finance.chargeback_dim
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: chargeback_open_date
+    field: chargeback_agent_opened_id
+    data_type: null
+- type: formula
+  data_type: string
+  name: chargeback_creation
+  sql: case when {chargeback_agent_opened_id} = 1 then 'System' when {chargeback_agent_opened_id}
+    > 1 then 'Manual' end
+  features:
+  - feature: chargeback_agent_opened_id
+    alias: null
+- type: formula
+  data_type: string
+  name: deactivated_agent_id
+  sql: case when {deactivated_by} = 'agent' then {deactivated_by} end
+  features:
+  - feature: deactivated_by
+    alias: null
+- type: formula
+  data_type: string
+  name: bill_number_in_sale
+  sql: row_number() over (partition by {sale_id} order by {created_at} asc)
+  features:
+  - feature: created_at
+    alias: null
+  - feature: sale_id
+    alias: null
+- type: field
+  name: post_sale_id
+  data_type: number
+  asset: sale
+  join_name: post_sale
+  time_field: null
+  filters: []
+  field: id
+- type: formula
+  data_type: string
+  name: bill_number_in_sale_per_payment_type
+  sql: row_number() over (partition by {sale_id}, {first_attempt_payment_type_name}
+    order by {created_at} asc)
+  features:
+  - feature: first_attempt_payment_type_name
+    alias: null
+  - feature: created_at
+    alias: null
+  - feature: sale_id
+    alias: null
+- type: field
+  name: collected_agent
+  data_type: string
+  asset: agent
+  join_name: collected_agent
+  time_field: null
+  filters: []
+  field: full_name
+- type: field
+  name: deactivated_agent_name
+  data_type: string
+  asset: agent
+  join_name: deactivated_agent
+  time_field: null
+  filters: []
+  field: full_name
+
+related_assets:
+  networx_src.networx_global.ng_clients_history:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: bill_id
+        destination: misc_id
+        operator: equal
+  networx_prod.finance.bill_dim__base:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: bill_id
+        destination: bill_id
+        operator: equal
+  networx_prod.finance.bill_dim:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: bill_id
+        destination: bill_id
+        operator: equal
+  networx_prod.finance.payment_dim:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: bill_id
+        destination: bill_id
+        operator: equal
+  networx_src.networx_global.ng_one_time_bills:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: bill_id
+        destination: bill_id
+        operator: equal
+  networx_src.networx_global.ng_payments:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: bill_id
+        destination: bill_id
+        operator: equal
+  networx_src.networx_global.ng_item_history:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: bill_id
+        destination: item_id
+        operator: equal
+  networx_prod.finance.chargeback_dim:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: bill_id
+        destination: bill_id
+        operator: equal

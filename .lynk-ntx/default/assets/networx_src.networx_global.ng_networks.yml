@@ -1,0 +1,10 @@
+asset: networx_src.networx_global.ng_networks
+
+business_keys: []
+
+description: ''
+
+measures:
+- name: client_industry
+  description: ''
+  sql: max({name})

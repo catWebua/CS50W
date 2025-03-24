@@ -1,0 +1,15 @@
+asset: networx_src.networx_global.ng_clients_lead_call_tracking
+
+business_keys: []
+
+description: ''
+
+fields:
+- name: duration
+  description: null
+  data_type: number
+
+measures:
+- name: first_app_call
+  description: ''
+  sql: min({start_time})

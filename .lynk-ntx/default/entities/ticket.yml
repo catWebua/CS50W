@@ -1,0 +1,22 @@
+name: ticket
+
+description: ''
+
+key_table: networx_prod.core.tickets_dim
+
+aliases:
+- ticket
+- closed_inquiry_ticket
+
+related_assets:
+  networx_prod.core.tickets_dim:
+    relationship: one_to_one
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: ticket_id
+        destination: ticket_id
+        operator: equal
+
+features: []

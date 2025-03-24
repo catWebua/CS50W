@@ -1,0 +1,9 @@
+asset: networx_prod.finance.payment_dim
+
+business_key:
+- payment_id
+
+measures:
+- name: total_payments
+  description: count of payments
+  sql: count(distinct {payment_id})

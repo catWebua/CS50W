@@ -1,0 +1,38 @@
+name: partner
+
+description: ''
+
+key_table: networx_prod.core.partner_dim
+
+aliases: []
+
+related_assets:
+  networx_src.networx_global.ng_affiliate_partners:
+    relationship: one_to_many
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: partner_id
+        destination: partner_id
+        operator: equal
+  networx_prod.core.partner_dim:
+    relationship: one_to_one
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: partner_id
+        destination: partner_id
+        operator: equal
+  networx_src.networx_global.ng_partner_zipcode:
+    relationship: one_to_many
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: partner_id
+        destination: partner_id
+        operator: equal
+
+features: []

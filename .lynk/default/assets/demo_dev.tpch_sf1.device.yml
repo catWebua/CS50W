@@ -1,10 +1,13 @@
 asset: demo_dev.tpch_sf1.device
 
-key: []
+business_keys: []
 
-business_key: []
+description: ''
 
 measures:
 - name: count_devices
   description: ''
   sql: count(*)
+- name: m-measure-1
+  description: descc
+  sql: my_sql

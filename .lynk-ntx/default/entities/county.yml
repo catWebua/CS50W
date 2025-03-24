@@ -1,0 +1,20 @@
+name: county
+
+description: ''
+
+key_table: networx_src.networx_global.ng_county
+
+aliases: []
+
+related_assets:
+  networx_src.networx_global.ng_county:
+    relationship: one_to_one
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: county_id
+        destination: county_id
+        operator: equal
+
+features: []

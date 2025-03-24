@@ -1,0 +1,1181 @@
+name: lead
+
+description: ''
+
+key_table: networx_prod.core.lead_dim
+
+aliases: []
+
+features:
+- type: metric
+  name: pbl_revenue
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: product_type_id
+    operator: is_not
+    values:
+    - 9
+  measure: pbl_revenue
+- type: metric
+  name: fr_revenue
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: product_type_id
+    operator: is
+    values:
+    - 9
+  measure: pbl_revenue
+- type: metric
+  name: nx_revenue
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: nx_revenue
+- type: metric
+  name: appt_revenue
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: leg_is_scheduled
+    operator: is
+    values:
+    - 'True'
+  measure: pbl_revenue
+- type: metric
+  name: dynamic_revenue
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: dynamic_revenue
+- type: metric
+  name: opp_revenue
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: opp_type_id
+    operator: is_set
+    values: null
+  measure: pbl_revenue
+- type: metric
+  name: received_legs
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: received_legs
+- type: metric
+  name: pbl_legs_prescrubs
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: pbl_legs_prescrubs
+- type: metric
+  name: pbl_legs_charged
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: pbl_legs_charged
+- type: metric
+  name: received_legs
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: received_at
+    operator: is_set
+    values: null
+  measure: count_legs
+- type: metric
+  name: pbl_legs_prescrubs
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: product_type_id
+    operator: is
+    values:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 8
+  measure: count_legs
+- type: metric
+  name: pbl_legs_charged
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: product_type_id
+    operator: is
+    values:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 8
+  - type: field
+    field: pbl_revenue
+    operator: gt
+    values:
+    - 0
+  measure: count_legs
+- type: metric
+  name: nx_fr_legs_prescrubs
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: product_type_id
+    operator: is
+    values:
+    - 7
+    - 9
+  measure: count_legs
+- type: metric
+  name: nx_fr_legs_charged
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: product_type_id
+    operator: is
+    values:
+    - 7
+    - 9
+  - type: field
+    field: nx_revenue
+    operator: gt
+    values:
+    - 0
+  measure: count_legs
+- type: metric
+  name: qvc_leg
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: cohort_test_id
+    operator: is
+    values:
+    - 3
+    - 5
+  measure: count_legs
+- type: metric
+  name: appreciation_price
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: appreciation_price
+- type: metric
+  name: num_lcr
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: lcr_status
+    operator: is_not
+    values:
+    - Not Reported
+  measure: count_legs
+- type: metric
+  name: lcr
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: lcr
+- type: metric
+  name: claim_status_id
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: claim_status_id
+- type: metric
+  name: claim_status
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: claim_status
+- type: metric
+  name: legs_statused_contacted
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: leg_status
+    operator: is
+    values:
+    - Contacted
+  measure: count_legs
+- type: metric
+  name: legs_statused_estimation
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: leg_status
+    operator: is
+    values:
+    - Estimation
+    - Estimate
+  measure: count_legs
+- type: metric
+  name: legs_statused_won_job
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: leg_status
+    operator: is
+    values:
+    - Won Job
+  measure: count_legs
+- type: metric
+  name: legs_statused_other
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: leg_status
+    operator: is
+    values:
+    - Other
+  measure: count_legs
+- type: metric
+  name: legs_statused_stopped_responding
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: leg_status
+    operator: is
+    values:
+    - Stopped responding
+  measure: count_legs
+- type: metric
+  name: legs_statused_needs_follow_up
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: leg_status
+    operator: is
+    values:
+    - Needs Follow Up
+  measure: count_legs
+- type: metric
+  name: legs_statused_new
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: leg_status
+    operator: is
+    values:
+    - New
+  measure: count_legs
+- type: metric
+  name: legs_statused_unable_to_reach
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: leg_status
+    operator: is
+    values:
+    - Unable to Reach
+  measure: count_legs
+- type: metric
+  name: legs_statused_did_not_win_job
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: leg_status
+    operator: is
+    values:
+    - Did Not Win Job
+  measure: count_legs
+- type: metric
+  name: legs_statused_never_established_contact
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: leg_status
+    operator: is
+    values:
+    - Never established contact
+  measure: count_legs
+- type: metric
+  name: legs_statused_selected_another_contractor
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: leg_status
+    operator: is
+    values:
+    - Selected another contractor
+  measure: count_legs
+- type: metric
+  name: legs_statused_cannot_perform_work
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: leg_status
+    operator: is
+    values:
+    - Cannot perform work
+  measure: count_legs
+- type: metric
+  name: num_lcr_wrong_category
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: claim_reason
+    operator: is
+    values:
+    - Wrong Category
+  measure: count_legs
+- type: metric
+  name: has_sms_from_homeowner_to_client
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: has_sms_from_homeowner_to_client
+- type: metric
+  name: has_sms_reply_from_homeowner_to_client
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: has_sms_reply_from_homeowner_to_client
+- type: metric
+  name: has_sms_from_client_to_homeowner
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: has_sms_from_client_to_homeowner
+- type: metric
+  name: ho_replies
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: ho_replies
+- type: metric
+  name: num_legs_non_ep
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: num_legs_non_ep
+- type: metric
+  name: num_legs_corporate
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: num_legs_corporate
+- type: metric
+  name: num_legs_franchise
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: num_legs_franchise
+- type: metric
+  name: num_legs_opp
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: num_legs_opp
+- type: metric
+  name: lead_has_a_leg_that_is_scheduled
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: lead_has_a_leg_that_is_scheduled
+- type: metric
+  name: number_of_scheduled_legs
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: number_of_scheduled_legs
+- type: metric
+  name: lead_has_a_leg_that_is_nonscheduled
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: lead_has_a_leg_that_is_nonscheduled
+- type: metric
+  name: leg_first_received_at
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: leg_first_received_at
+- type: metric
+  name: lead_scheduled_leg_first_received_at
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: lead_scheduled_leg_first_received_at
+- type: metric
+  name: appointment_setter
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: appointment_setter
+- type: metric
+  name: number_of_scheduled_legs_within_10_days
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: number_of_scheduled_legs_within_10_days
+- type: metric
+  name: appointment_revenue_within_10_days
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: appointment_revenue_within_10_days
+- type: metric
+  name: revenue_within_10_days
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: revenue_within_10_days
+- type: metric
+  name: number_of_core_legs_on_an_appointment_within_10_days
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: number_of_core_legs_on_an_appointment_within_10_days
+- type: metric
+  name: core_revenue_on_an_appointment_within_10_days
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: core_revenue_on_an_appointment_within_10_days
+- type: metric
+  name: number_of_core_legs_on_a_core_only_lead_within_10_days
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: number_of_core_legs_on_a_core_only_lead_within_10_days
+- type: metric
+  name: core_revenue_on_a_core_only_lead_within_10_days
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: core_revenue_on_a_core_only_lead_within_10_days
+- type: first_last
+  name: dq_agent_id
+  data_type: string
+  asset: networx_src.networx_global.ng_item_history
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: history_type_id
+    operator: is
+    values:
+    - '20'
+  - type: field
+    field: field_name
+    operator: is
+    values:
+    - disqualified
+  - type: field
+    field: user_table_id
+    operator: is
+    values:
+    - '30'
+  options:
+    method: first
+    sort_by: created_at
+    field: user_id
+    data_type: null
+- type: first_last
+  name: approved_time
+  data_type: string
+  asset: networx_src.networx_global.ng_item_history
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: history_type_id
+    operator: is
+    values:
+    - '24'
+  - type: field
+    field: user_table_id
+    operator: is
+    values:
+    - '30'
+  options:
+    method: first
+    sort_by: created_at
+    field: created_at
+    data_type: null
+- type: first_last
+  name: approved_agent_id
+  data_type: string
+  asset: networx_src.networx_global.ng_item_history
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: history_type_id
+    operator: is
+    values:
+    - '24'
+  - type: field
+    field: user_table_id
+    operator: is
+    values:
+    - '30'
+  options:
+    method: first
+    sort_by: created_at
+    field: user_id
+    data_type: null
+- type: metric
+  name: ldp
+  data_type: number
+  asset: networx_src.networx_global.ng_potential_products_for_lead
+  join_name: null
+  time_field: null
+  filters: []
+  measure: ldp
+- type: metric
+  name: num_potential_clients
+  data_type: number
+  asset: product
+  join_name: lead_product_lookup
+  time_field: null
+  filters: []
+  measure: count_clients
+- type: metric
+  name: partner_earn
+  data_type: number
+  asset: networx_src.networx_global.ng_lead_partners
+  join_name: null
+  time_field: null
+  filters: []
+  measure: partner_earn
+- type: field
+  name: partner_name
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__partners
+  join_name: null
+  time_field: null
+  filters: []
+  field: partner_name
+- type: metric
+  name: has_feedback
+  data_type: number
+  asset: networx_src.networx_global.ng_feedback
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: approved
+    operator: is
+    values:
+    - '1'
+  - type: field
+    field: deleted_at
+    operator: is_not_set
+    values: null
+  - type: field
+    field: status_id
+    operator: is
+    values:
+    - '1'
+  measure: has_feedback
+- type: metric
+  name: num_feedback
+  data_type: number
+  asset: networx_src.networx_global.ng_feedback
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: approved
+    operator: is
+    values:
+    - '1'
+  - type: field
+    field: deleted_at
+    operator: is_not_set
+    values: null
+  - type: field
+    field: status_id
+    operator: is
+    values:
+    - '1'
+  measure: count_feedback
+- type: metric
+  name: feedback_date
+  data_type: number
+  asset: networx_src.networx_global.ng_feedback
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: approved
+    operator: is
+    values:
+    - '1'
+  - type: field
+    field: deleted_at
+    operator: is_not_set
+    values: null
+  - type: field
+    field: status_id
+    operator: is
+    values:
+    - '1'
+  measure: feedback_date
+- type: field
+  name: phone_call_created_at
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__phone_call
+  join_name: null
+  time_field: null
+  filters: []
+  field: phone_call_created_at
+- type: field
+  name: transferred
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__phone_call
+  join_name: null
+  time_field: null
+  filters: []
+  field: transferred
+- type: field
+  name: aff_form_id
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__affiliates
+  join_name: null
+  time_field: null
+  filters: []
+  field: aff_form_id
+- type: field
+  name: aal_source_id
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__affiliates
+  join_name: null
+  time_field: null
+  filters: []
+  field: aal_source_id
+- type: field
+  name: min_blocked_source_score
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__affiliates
+  join_name: null
+  time_field: null
+  filters: []
+  field: min_blocked_source_score
+- type: field
+  name: max_blocked_source_score
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__affiliates
+  join_name: null
+  time_field: null
+  filters: []
+  field: max_blocked_source_score
+- type: field
+  name: bid
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__affiliates
+  join_name: null
+  time_field: null
+  filters: []
+  field: bid
+- type: field
+  name: affiliate_response
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__affiliates
+  join_name: null
+  time_field: null
+  filters: []
+  field: affiliate_response
+- type: field
+  name: grey_source
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__affiliates
+  join_name: null
+  time_field: null
+  filters: []
+  field: grey_source
+- type: field
+  name: filtered_source
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__affiliates
+  join_name: null
+  time_field: null
+  filters: []
+  field: filtered_source
+- type: field
+  name: aff_post_task_name
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__affiliates
+  join_name: null
+  time_field: null
+  filters: []
+  field: aff_post_task_name
+- type: field
+  name: aff_post_category_name
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__affiliates
+  join_name: null
+  time_field: null
+  filters: []
+  field: aff_post_category_name
+- type: field
+  name: partial_match
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__affiliates
+  join_name: null
+  time_field: null
+  filters: []
+  field: partial_match
+- type: field
+  name: aggressive_bid
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__affiliates
+  join_name: null
+  time_field: null
+  filters: []
+  field: aggressive_bid
+- type: field
+  name: was_ping
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__affiliates
+  join_name: null
+  time_field: null
+  filters: []
+  field: was_ping
+- type: metric
+  name: blacklist_score
+  data_type: number
+  asset: networx_src.networx_global.ng_blacklist
+  join_name: lead_blacklist_lookup
+  time_field: null
+  filters: []
+  measure: blacklist_score
+- type: field
+  name: last_phone_call_while_appointment_queued
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__appointment_queue_phone_call
+  join_name: null
+  time_field: null
+  filters: []
+  field: last_phone_call_while_appointment_queued
+- type: field
+  name: phone_call_duration_while_appointment_queued
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__appointment_queue_phone_call
+  join_name: null
+  time_field: null
+  filters: []
+  field: phone_call_duration_while_appointment_queued
+- type: field
+  name: phone_calls_attempted_while_appointment_queued
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__appointment_queue_phone_call
+  join_name: null
+  time_field: null
+  filters: []
+  field: phone_calls_attempted_while_appointment_queued
+- type: field
+  name: last_sms_while_appointment_queued
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__appointment_queue_sms
+  join_name: null
+  time_field: null
+  filters: []
+  field: last_sms_while_appointment_queued
+- type: field
+  name: first_assigned_appointment_agent_id
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__first_assigned_appointment_agent
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_assigned_appointment_agent_id
+- type: field
+  name: first_assigned_appointment_agent_at
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__first_assigned_appointment_agent
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_assigned_appointment_agent_at
+- type: field
+  name: first_assigned_greylist_agent_id
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__first_assigned_appointment_agent
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_assigned_greylist_agent_id
+- type: field
+  name: first_assigned_greylist_agent_at
+  data_type: string
+  asset: networx_prod.core.lead_lifetime__first_assigned_appointment_agent
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_assigned_greylist_agent_at
+
+related_assets:
+  networx_prod.core.lead_lifetime__first_assigned_appointment_agent:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_prod.core.lead_lifetime__appointment_queue_sms:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_prod.core.lead_lifetime__appointment_queue_phone_call:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_src.networx_global.ng_blacklist:
+    relationship: one_to_many
+    joins:
+    - name: lead_blacklist_lookup
+      default: true
+      type: lookup
+      lookup:
+      - destination: networx_src.networx_global.ng_lead_blacklist_matches
+        type: fields
+        fields:
+        - source: lead_id
+          destination: lead_id
+          operator: equal
+      - destination: networx_src.networx_global.ng_blacklist
+        type: fields
+        fields:
+        - source: blacklist_id
+          destination: id
+          operator: equal
+  networx_prod.core.lead_lifetime__affiliates:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_prod.core.lead_lifetime__phone_call:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_src.networx_global.ng_feedback:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_prod.core.lead_lifetime__partners:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_src.networx_global.ng_potential_products_for_lead:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_src.networx_global.ng_item_history:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: item_id
+        operator: equal
+  networx_prod.core.lead_partner:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_src.networx_global.ng_lead:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_prod.core.legs_dim__sms2:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_src.networx_global.ng_lead_verification_reasons:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_src.networx_global.ng_night_leads:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_src.networx_global.ng_opp_lead_preview_tracking:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_src.networx_global.ng_lead_partners:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_src.networx_global.ng_leads_pending_verification:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_src.networx_global.ng_lead_disqualify_reason:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_prod.core.lead_dim:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_src.mixpanel.mp_events__lead:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_src.networx_global.ng_clients_lead:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_src.networx_global.ng_lead_blacklist_matches:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_src.networx_global.ng_leads_mapping:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  networx_src.networx_global.ng_lead_claimed_certificates:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal

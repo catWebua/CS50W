@@ -1,0 +1,11 @@
+asset: networx_src.networx_global.ng_affiliate_payment
+
+business_keys:
+- affiliate_id
+
+description: ''
+
+measures:
+- name: total_payments
+  description: ''
+  sql: sum({payment_amount})

@@ -1,0 +1,84 @@
+entity: product
+
+defaults:
+  time_field: activated_at
+
+measures:
+- name: sale_count
+  description: ''
+  sql: count(distinct {client_activation_id})
+- name: product_count
+  description: ''
+  sql: count(distinct {product_id})
+- name: ic_amount
+  description: ''
+  sql: sum({ic_amount})
+- name: total_commission_amount
+  description: ''
+  sql: sum({total_commission_amount})
+- name: otc_for_budget
+  description: ''
+  sql: sum({otc_for_budget})
+- name: extra_credit
+  description: ''
+  sql: sum({extra_credit})
+- name: signup_fee
+  description: ''
+  sql: sum({signup_fee})
+- name: signup_discount
+  description: ''
+  sql: sum({signup_discount})
+- name: signup_budget
+  description: ''
+  sql: sum({recurring_amount})
+- name: average_signup_cycle
+  description: ''
+  sql: avg({signup_cycle})
+- name: main_signup_network_priority_id
+  description: ''
+  sql: max({main_signup_network_priority_id})
+- name: has_activated_with_prepaid_card
+  description: ''
+  sql: max({activated_with_prepaid_card})
+- name: signup_product_types
+  description: ''
+  sql: listagg(distinct concat({abbreviation}, {signup_cycle}), ',') within group (order by concat({abbreviation}, {signup_cycle}))
+- name: product_abbreviation
+  description: ''
+  sql: listagg(distinct {abbreviation}, ',') within group (order by {abbreviation})
+- name: first_sale_date
+  description: ''
+  sql: min({activated_at})
+- name: client_current_budget
+  description: ''
+  sql: sum({bill_amount})
+- name: client_count_sale_product
+  description: ''
+  sql: count(distinct case when {is_sale_product} then {product_id} end)
+- name: client_signup_budget
+  description: ''
+  sql: sum(case when {is_sale_product} then {recurring_amount} end)
+- name: first_sale_signup_network_priority_id
+  description: ''
+  sql: max(case when {is_sale_product} then {main_signup_network_priority_id} end)
+- name: client_current_balance
+  description: ''
+  sql: sum({current_balance})
+- name: count_different_networks
+  description: ''
+  sql: count(distinct {main_signup_network})
+- name: operating_products
+  description: ''
+  sql: sum(case when {activated_at} is not null and {deactivated_at} is null then 1 else 0 end)
+- name: client_signup_cycle
+  description: ''
+  sql: avg(case when {is_sale_product} then {signup_cycle} end)
+- name: client_current_cycle
+  description: ''
+  sql: avg({current_cycle})
+- name: count_product_id
+  description: ''
+  sql: count({product_id})
+- name: count_clients
+  description: ''
+  sql: count(distinct {client_id})

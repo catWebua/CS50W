@@ -1,0 +1,21 @@
+name: zip_code
+
+description: ''
+
+key_table: networx_src.networx_global.ng_zip_codes
+
+aliases: []
+
+related_assets:
+  
+  networx_src.networx_global.ng_zip_codes:
+    relationship: one_to_one
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: zip_code_id
+        destination: zip_code_id
+        operator: equal
+
+features: []

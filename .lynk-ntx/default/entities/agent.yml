@@ -1,0 +1,427 @@
+name: agent
+
+description: An agent is a sales or customer service rep
+
+key_table: networx_prod.core.agents_dim
+
+aliases:
+- agent
+- account_manager
+- closed_agent
+- agent_opened
+- intro_agent
+
+features:
+- type: metric
+  name: sale_count
+  data_type: number
+  asset: product
+  join_name: agent_id
+  time_field: activated_at
+  filters:
+  - type: field
+    field: activated_at
+    operator: is_set
+    values: null
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - true
+  - type: field
+    field: agent_id
+    operator: is_set
+    values: null
+  measure: sale_count
+- type: metric
+  name: product_count
+  data_type: number
+  asset: product
+  join_name: agent_id
+  time_field: activated_at
+  filters:
+  - type: field
+    field: activated_at
+    operator: is_set
+    values: null
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - true
+  - type: field
+    field: agent_id
+    operator: is_set
+    values: null
+  measure: product_count
+- type: metric
+  name: ic_amount
+  data_type: number
+  asset: product
+  join_name: agent_id
+  time_field: activated_at
+  filters:
+  - type: field
+    field: activated_at
+    operator: is_set
+    values: null
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - true
+  - type: field
+    field: agent_id
+    operator: is_set
+    values: null
+  measure: ic_amount
+- type: metric
+  name: total_commission_amount
+  data_type: number
+  asset: product
+  join_name: agent_id
+  time_field: activated_at
+  filters:
+  - type: field
+    field: activated_at
+    operator: is_set
+    values: null
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - true
+  - type: field
+    field: agent_id
+    operator: is_set
+    values: null
+  measure: total_commission_amount
+- type: metric
+  name: otc_for_budget
+  data_type: number
+  asset: product
+  join_name: agent_id
+  time_field: activated_at
+  filters:
+  - type: field
+    field: activated_at
+    operator: is_set
+    values: null
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - true
+  - type: field
+    field: agent_id
+    operator: is_set
+    values: null
+  measure: otc_for_budget
+- type: metric
+  name: extra_credit
+  data_type: number
+  asset: product
+  join_name: agent_id
+  time_field: activated_at
+  filters:
+  - type: field
+    field: activated_at
+    operator: is_set
+    values: null
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - true
+  - type: field
+    field: agent_id
+    operator: is_set
+    values: null
+  measure: extra_credit
+- type: metric
+  name: signup_fee
+  data_type: number
+  asset: product
+  join_name: agent_id
+  time_field: activated_at
+  filters:
+  - type: field
+    field: activated_at
+    operator: is_set
+    values: null
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - true
+  - type: field
+    field: agent_id
+    operator: is_set
+    values: null
+  measure: signup_fee
+- type: metric
+  name: signup_discount
+  data_type: number
+  asset: product
+  join_name: agent_id
+  time_field: activated_at
+  filters:
+  - type: field
+    field: activated_at
+    operator: is_set
+    values: null
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - true
+  - type: field
+    field: agent_id
+    operator: is_set
+    values: null
+  measure: signup_discount
+- type: metric
+  name: signup_budget
+  data_type: number
+  asset: product
+  join_name: agent_id
+  time_field: activated_at
+  filters:
+  - type: field
+    field: activated_at
+    operator: is_set
+    values: null
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - true
+  - type: field
+    field: agent_id
+    operator: is_set
+    values: null
+  measure: signup_budget
+- type: metric
+  name: average_signup_cycle
+  data_type: number
+  asset: product
+  join_name: agent_id
+  time_field: activated_at
+  filters:
+  - type: field
+    field: activated_at
+    operator: is_set
+    values: null
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - true
+  - type: field
+    field: agent_id
+    operator: is_set
+    values: null
+  measure: average_signup_cycle
+- type: metric
+  name: main_signup_network_priority_id
+  data_type: number
+  asset: product
+  join_name: agent_id
+  time_field: activated_at
+  filters:
+  - type: field
+    field: activated_at
+    operator: is_set
+    values: null
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - true
+  - type: field
+    field: agent_id
+    operator: is_set
+    values: null
+  measure: main_signup_network_priority_id
+- type: metric
+  name: has_activated_with_prepaid_card
+  data_type: number
+  asset: product
+  join_name: agent_id
+  time_field: activated_at
+  filters:
+  - type: field
+    field: activated_at
+    operator: is_set
+    values: null
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - true
+  - type: field
+    field: agent_id
+    operator: is_set
+    values: null
+  measure: has_activated_with_prepaid_card
+- type: metric
+  name: signup_product_types
+  data_type: number
+  asset: product
+  join_name: agent_id
+  time_field: activated_at
+  filters:
+  - type: field
+    field: activated_at
+    operator: is_set
+    values: null
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - true
+  - type: field
+    field: agent_id
+    operator: is_set
+    values: null
+  measure: signup_product_types
+- type: metric
+  name: product_abbreviation
+  data_type: number
+  asset: product
+  join_name: agent_id
+  time_field: activated_at
+  filters:
+  - type: field
+    field: activated_at
+    operator: is_set
+    values: null
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - true
+  - type: field
+    field: agent_id
+    operator: is_set
+    values: null
+  measure: product_abbreviation
+
+related_assets:
+  networx_prod.core.inquiry_distribution_log__pcl:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: agent_id
+        destination: agent_id
+        operator: equal
+  networx_prod.core.inquiry_distribution__inq_sales:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: agent_id
+        destination: agent_id
+        operator: equal
+  networx_prod.core.inquiry_distribution__pcl:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: agent_id
+        destination: agent_id
+        operator: equal
+  networx_prod.core.inquiry_distribution_log__inq_sales:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: agent_id
+        destination: agent_id
+        operator: equal
+  networx_src.networx_global.ng_outbound_call_required:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: agent_id
+        destination: agent_id
+        operator: equal
+  networx_prod.core.inquiry_distribution__days:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: agent_id
+        destination: agent_id
+        operator: equal
+  networx_src.networx_global.ng_agent_quotas:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: agent_id
+        destination: agent_id
+        operator: equal
+  networx_src.networx_global.ng_agent_metadata:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: agent_id
+        destination: agent_id
+        operator: equal
+  networx_prod.core.inquiry_distribution:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: agent_id
+        destination: agent_id
+        operator: equal
+  networx_prod.core.agents_dim:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: agent_id
+        destination: agent_id
+        operator: equal
+  networx_src.networx_global.ng_admin_agents:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: agent_id
+        destination: agent_id
+        operator: equal
+  networx_prod.core.inquiry_distribution_log:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: agent_id
+        destination: agent_id
+        operator: equal
+  networx_prod.core.inquiry_distribution_log__cap:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: agent_id
+        destination: agent_id
+        operator: equal

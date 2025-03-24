@@ -1,0 +1,20 @@
+name: task
+
+description: ''
+
+key_table: networx_src.networx_global.ng_tasks
+
+aliases: []
+
+related_assets:
+  networx_src.networx_global.ng_tasks:
+    relationship: one_to_one
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: task_id
+        destination: task_id
+        operator: equal
+
+features: []

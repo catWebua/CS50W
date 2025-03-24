@@ -1,0 +1,20 @@
+name: ad_group
+
+description: ''
+
+key_table: networx_src.google_ads.gads_ad_groups_metadata
+
+aliases: []
+
+related_assets:
+  networx_src.google_ads.gads_ad_groups_metadata:
+    relationship: one_to_one
+    joins:
+    - type: fields
+      default: true
+      fields:
+      - source: ad_group_id
+        destination: ad_group_id
+        operator: equal
+
+features: []

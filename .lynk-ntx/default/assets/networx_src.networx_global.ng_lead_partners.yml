@@ -1,0 +1,10 @@
+asset: networx_src.networx_global.ng_lead_partners
+
+business_keys: []
+
+description: ''
+
+measures:
+- name: partner_earn
+  description: ''
+  sql: min_by({earn}, {partner_id})

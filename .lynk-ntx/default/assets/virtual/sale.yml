@@ -1,0 +1,14 @@
+entity: sale
+
+defaults: null
+
+measures:
+- name: first_sale_date
+  description: ''
+  sql: min({activated_at})
+- name: client_count_sales
+  description: ''
+  sql: count(distinct {id})
+- name: operating_sales
+  description: ''
+  sql: sum(case when {activated_at} is not null and {deactivated_at} is null then 1 else 0 end)

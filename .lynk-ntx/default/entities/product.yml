@@ -1,0 +1,163 @@
+name: product
+
+description: ''
+
+key_table: networx_prod.core.product_dim
+
+aliases: []
+
+features:
+- type: metric
+  name: first_sale_date
+  data_type: number
+  asset: sale
+  join_name: null
+  time_field: null
+  filters: []
+  measure: first_sale_date
+
+related_assets:
+  networx_prod.core.product_lifecycle:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: product_id
+        destination: product_id
+        operator: equal
+  networx_prod.core.product_dim:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: product_id
+        destination: product_id
+        operator: equal
+  networx_src.networx_global.ng_product_pbl_details:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: product_id
+        destination: product_id
+        operator: equal
+  networx_src.networx_global.ng_product_pbl_zip_code:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: product_id
+        destination: product_id
+        operator: equal
+  networx_src.networx_global.ng_product_pbl_balance:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: product_id
+        destination: product_id
+        operator: equal
+  networx_src.networx_global.ng_product_signup_categories:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: product_id
+        destination: product_id
+        operator: equal
+  networx_src.networx_global.ng_products:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: product_id
+        destination: product_id
+        operator: equal
+  networx_src.networx_global.ng_product_pbl_daily_archive:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: product_id
+        destination: product_id
+        operator: equal
+  networx_src.networx_global.ng_product_signup_details:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: product_id
+        destination: product_id
+        operator: equal
+  networx_prod.core.product_tasks:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: product_id
+        destination: product_id
+        operator: equal
+  networx_src.networx_global.ng_potential_products_for_lead:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: product_id
+        destination: product_id
+        operator: equal
+  networx_src.networx_global.ng_product_pbl_tasks:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: product_id
+        destination: product_id
+        operator: equal
+  networx_src.networx_global.ng_product_licenses_required:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: product_id
+        destination: product_id
+        operator: equal
+  networx_prod.core.product_active_status_log:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: product_id
+        destination: product_id
+        operator: equal
+  networx_src.networx_global.ng_product_subscriptions_details:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: product_id
+        destination: product_id
+        operator: equal
+  networx_src.networx_global.ng_opp_lead_preview_tracking:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: product_id
+        destination: product_id
+        operator: equal

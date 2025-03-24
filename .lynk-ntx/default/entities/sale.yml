@@ -1,0 +1,2079 @@
+name: sale
+
+description: ''
+
+key_table: networx_prod.core.sale_dim__base
+
+aliases: []
+
+features:
+- type: formula
+  data_type: string
+  name: sale_month
+  sql: to_date(date_trunc(month, {activated_at}))
+  features:
+  - feature: activated_at
+    alias: null
+- type: formula
+  data_type: string
+  name: sale_cancelled_month
+  sql: datediff('month', {activated_at}, coalesce({deactivated_at}, current_date()))
+  features:
+  - feature: activated_at
+    alias: null
+  - feature: deactivated_at
+    alias: null
+- type: formula
+  data_type: string
+  name: sale_year
+  sql: year({activated_at})
+  features:
+  - feature: activated_at
+    alias: null
+- type: formula
+  data_type: string
+  name: live_days
+  sql: datediff('day', {activated_at}, coalesce({deactivated_at}, current_date()))
+  features:
+  - feature: activated_at
+    alias: null
+  - feature: deactivated_at
+    alias: null
+- type: formula
+  data_type: string
+  name: time_to_cancel
+  sql: datediff('day', {activated_at}, {deactivated_at})
+  features:
+  - feature: activated_at
+    alias: null
+  - feature: deactivated_at
+    alias: null
+- type: field
+  name: intro_agent_id
+  data_type: number
+  asset: networx_prod.core.sale_dim__item_history
+  join_name: null
+  time_field: null
+  filters: []
+  field: intro_agent_id
+- type: field
+  name: intro_at
+  data_type: datetime
+  asset: networx_prod.core.sale_dim__item_history
+  join_name: null
+  time_field: null
+  filters: []
+  field: intro_at
+- type: field
+  name: intro_declined_agent_id
+  data_type: number
+  asset: networx_prod.core.sale_dim__item_history
+  join_name: null
+  time_field: null
+  filters: []
+  field: intro_declined_agent_id
+- type: field
+  name: intro_declined_at
+  data_type: datetime
+  asset: networx_prod.core.sale_dim__item_history
+  join_name: null
+  time_field: null
+  filters: []
+  field: intro_declined_at
+- type: field
+  name: confirmed_plan_at
+  data_type: datetime
+  asset: networx_prod.core.sale_dim__history
+  join_name: null
+  time_field: null
+  filters: []
+  field: confirmed_plan_at
+- type: field
+  name: digital_onboard
+  data_type: string
+  asset: networx_prod.core.sale_dim__history
+  join_name: null
+  time_field: null
+  filters: []
+  field: digital_onboard
+- type: metric
+  name: count_approved_bills
+  data_type: number
+  asset: bill
+  join_name: standrd
+  time_field: null
+  filters:
+  - type: field
+    field: item_id_name
+    operator: is
+    values:
+    - client
+  - type: field
+    field: last_payment_attempt_display_status
+    operator: is
+    values:
+    - approved
+  measure: count_bills
+- type: metric
+  name: approved_bills_sum_payment_amount
+  data_type: number
+  asset: bill
+  join_name: standrd
+  time_field: null
+  filters:
+  - type: field
+    field: item_id_name
+    operator: is
+    values:
+    - client
+  - type: field
+    field: last_payment_attempt_display_status
+    operator: is
+    values:
+    - approved
+  measure: sum_payment_amount
+- type: metric
+  name: first_approved_bill_created_at
+  data_type: number
+  asset: bill
+  join_name: standrd
+  time_field: null
+  filters:
+  - type: field
+    field: item_id_name
+    operator: is
+    values:
+    - client
+  - type: field
+    field: last_payment_attempt_display_status
+    operator: is
+    values:
+    - approved
+  measure: first_bill_created_at
+- type: metric
+  name: last_approved_bill_created_at
+  data_type: number
+  asset: bill
+  join_name: standrd
+  time_field: null
+  filters:
+  - type: field
+    field: item_id_name
+    operator: is
+    values:
+    - client
+  - type: field
+    field: last_payment_attempt_display_status
+    operator: is
+    values:
+    - approved
+  measure: last_bill_created_at
+- type: metric
+  name: count_declined_bills
+  data_type: number
+  asset: bill
+  join_name: standrd
+  time_field: null
+  filters:
+  - type: field
+    field: item_id_name
+    operator: is
+    values:
+    - client
+  - type: field
+    field: last_payment_attempt_display_status
+    operator: is
+    values:
+    - declined
+  measure: count_bills
+- type: metric
+  name: declined_bills_sum_payment_amount
+  data_type: number
+  asset: bill
+  join_name: standrd
+  time_field: null
+  filters:
+  - type: field
+    field: item_id_name
+    operator: is
+    values:
+    - client
+  - type: field
+    field: last_payment_attempt_display_status
+    operator: is
+    values:
+    - declined
+  measure: sum_payment_amount
+- type: metric
+  name: first_declined_bill_created_at
+  data_type: number
+  asset: bill
+  join_name: standrd
+  time_field: null
+  filters:
+  - type: field
+    field: item_id_name
+    operator: is
+    values:
+    - client
+  - type: field
+    field: last_payment_attempt_display_status
+    operator: is
+    values:
+    - declined
+  measure: first_bill_created_at
+- type: metric
+  name: last_declined_bill_created_at
+  data_type: number
+  asset: bill
+  join_name: standrd
+  time_field: null
+  filters:
+  - type: field
+    field: item_id_name
+    operator: is
+    values:
+    - client
+  - type: field
+    field: last_payment_attempt_display_status
+    operator: is
+    values:
+    - declined
+  measure: last_bill_created_at
+- type: metric
+  name: count_chargeback_requests
+  data_type: number
+  asset: bill
+  join_name: standrd
+  time_field: null
+  filters:
+  - type: field
+    field: item_id_name
+    operator: is
+    values:
+    - client
+  - type: field
+    field: last_chargeback_resolution
+    operator: is_set
+    values: null
+  measure: count_bills
+- type: metric
+  name: chargebacks_sum_payment_amount
+  data_type: number
+  asset: bill
+  join_name: standrd
+  time_field: null
+  filters:
+  - type: field
+    field: item_id_name
+    operator: is
+    values:
+    - client
+  - type: field
+    field: last_chargeback_resolution
+    operator: is_set
+    values: null
+  measure: sum_payment_amount
+- type: metric
+  name: count_won_chargebacks
+  data_type: number
+  asset: bill
+  join_name: standrd
+  time_field: null
+  filters:
+  - type: field
+    field: item_id_name
+    operator: is
+    values:
+    - client
+  - type: field
+    field: last_chargeback_resolution
+    operator: is_set
+    values: null
+  - type: field
+    field: last_chargeback_resolution
+    operator: is
+    values:
+    - won
+  measure: count_bill_rows
+- type: metric
+  name: count_lost_chargebacks
+  data_type: number
+  asset: bill
+  join_name: standrd
+  time_field: null
+  filters:
+  - type: field
+    field: item_id_name
+    operator: is
+    values:
+    - client
+  - type: field
+    field: last_chargeback_resolution
+    operator: is_set
+    values: null
+  - type: field
+    field: last_chargeback_resolution
+    operator: is
+    values:
+    - lost
+  measure: count_bill_rows
+- type: metric
+  name: count_open_chargebacks
+  data_type: number
+  asset: bill
+  join_name: standrd
+  time_field: null
+  filters:
+  - type: field
+    field: item_id_name
+    operator: is
+    values:
+    - client
+  - type: field
+    field: last_chargeback_resolution
+    operator: is_set
+    values: null
+  - type: field
+    field: last_chargeback_resolution
+    operator: is
+    values:
+    - open
+  measure: count_bill_rows
+- type: metric
+  name: won_chargebacks_sum_payment_amount
+  data_type: number
+  asset: bill
+  join_name: standrd
+  time_field: null
+  filters:
+  - type: field
+    field: item_id_name
+    operator: is
+    values:
+    - client
+  - type: field
+    field: last_chargeback_resolution
+    operator: is_set
+    values: null
+  - type: field
+    field: last_chargeback_resolution
+    operator: is
+    values:
+    - won
+  measure: sum_payment_amount
+- type: metric
+  name: lost_chargebacks_sum_payment_amount
+  data_type: number
+  asset: bill
+  join_name: standrd
+  time_field: null
+  filters:
+  - type: field
+    field: item_id_name
+    operator: is
+    values:
+    - client
+  - type: field
+    field: last_chargeback_resolution
+    operator: is_set
+    values: null
+  - type: field
+    field: last_chargeback_resolution
+    operator: is
+    values:
+    - lost
+  measure: sum_payment_amount
+- type: metric
+  name: open_chargebacks_sum_payment_amount
+  data_type: number
+  asset: bill
+  join_name: standrd
+  time_field: null
+  filters:
+  - type: field
+    field: item_id_name
+    operator: is
+    values:
+    - client
+  - type: field
+    field: last_chargeback_resolution
+    operator: is_set
+    values: null
+  - type: field
+    field: last_chargeback_resolution
+    operator: is
+    values:
+    - open
+  measure: sum_payment_amount
+- type: metric
+  name: count_other_resolution_status_chargebacks
+  data_type: number
+  asset: bill
+  join_name: standrd
+  time_field: null
+  filters:
+  - type: field
+    field: item_id_name
+    operator: is
+    values:
+    - client
+  - type: field
+    field: last_chargeback_resolution
+    operator: is_set
+    values: null
+  - type: field
+    field: last_chargeback_resolution
+    operator: is_not
+    values:
+    - open
+    - won
+    - lost
+  measure: count_bill_rows
+- type: field
+  name: deactivate_agent_id
+  data_type: number
+  asset: networx_prod.core.sale_dim__deactivation
+  join_name: null
+  time_field: null
+  filters: []
+  field: deactivate_agent_id
+- type: field
+  name: deactivate_reason
+  data_type: string
+  asset: networx_prod.core.sale_dim__deactivation
+  join_name: null
+  time_field: null
+  filters: []
+  field: deactivate_reason
+- type: field
+  name: number_of_times_client_was_blacklisted_before_this_sale
+  data_type: number
+  asset: networx_prod.core.sale_dim__previous_blacklisting
+  join_name: null
+  time_field: null
+  filters: []
+  field: blacklist_instance
+- type: field
+  name: blacklisted_previous_sale_signup_flow
+  data_type: string
+  asset: networx_prod.core.sale_dim__previous_blacklisting
+  join_name: null
+  time_field: null
+  filters: []
+  field: blacklisted_previous_sale_signup_flow
+- type: field
+  name: blacklist_client_id
+  data_type: number
+  asset: networx_prod.core.sale_dim__previous_blacklisting
+  join_name: null
+  time_field: null
+  filters: []
+  field: client_id
+- type: field
+  name: previous_blacklist_agent_id
+  data_type: number
+  asset: networx_prod.core.sale_dim__previous_blacklisting
+  join_name: null
+  time_field: null
+  filters: []
+  field: previous_blacklist_agent_id
+- type: field
+  name: previous_blacklist_at
+  data_type: datetime
+  asset: networx_prod.core.sale_dim__previous_blacklisting
+  join_name: null
+  time_field: null
+  filters: []
+  field: previous_blacklist_at
+- type: field
+  name: previous_blacklist_client_user_id
+  data_type: number
+  asset: networx_prod.core.sale_dim__previous_blacklisting
+  join_name: null
+  time_field: null
+  filters: []
+  field: previous_blacklist_client_user_id
+- type: formula
+  data_type: number
+  name: client_was_blacklisted_before_this_sale
+  sql: ({blacklist_client_id} is not null)::int
+  features:
+  - feature: blacklist_client_id
+    alias: null
+- type: metric
+  name: lifetime_delivered_revenue
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: sale_id
+    operator: is_set
+    values: null
+  measure: pbl_revenue
+- type: metric
+  name: leg_cost
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: sale_id
+    operator: is_set
+    values: null
+  measure: leg_cost
+- type: metric
+  name: first_30days_lcr_submitted
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: sale_id
+    operator: is_set
+    values: null
+  measure: first_30days_lcr_submitted
+- type: metric
+  name: first_30days_lcr_denied
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: sale_id
+    operator: is_set
+    values: null
+  measure: first_30days_lcr_denied
+- type: metric
+  name: first_30days_lcr_approved
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: sale_id
+    operator: is_set
+    values: null
+  measure: first_30days_lcr_approved
+- type: metric
+  name: first_30days_opp_leads
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: sale_id
+    operator: is_set
+    values: null
+  measure: first_30days_opp_leads
+- type: metric
+  name: first_30days_delivered_leads
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: sale_id
+    operator: is_set
+    values: null
+  measure: first_30days_delivered_leads
+- type: metric
+  name: total_submitted_lcr
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: sale_id
+    operator: is_set
+    values: null
+  measure: total_submitted_lcr
+- type: metric
+  name: total_denied_lcr
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: sale_id
+    operator: is_set
+    values: null
+  measure: total_denied_lcr
+- type: metric
+  name: total_approved_lcr
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: sale_id
+    operator: is_set
+    values: null
+  measure: total_approved_lcr
+- type: metric
+  name: total_legs_with_status
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: sale_id
+    operator: is_set
+    values: null
+  measure: total_legs_with_status
+- type: metric
+  name: loyalty_delivered_revenue
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: sale_id
+    operator: is_set
+    values: null
+  measure: loyalty_delivered_revenue
+- type: metric
+  name: lifetime_contract_amount_entered
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: sale_id
+    operator: is_set
+    values: null
+  measure: lifetime_contract_amount_entered
+- type: metric
+  name: lifetime_legs_delivered
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: sale_id
+    operator: is_set
+    values: null
+  measure: lifetime_legs_delivered
+- type: metric
+  name: last_30_contract_amount_entered
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: sale_id
+    operator: is_set
+    values: null
+  measure: last_30_contract_amount_entered
+- type: formula
+  data_type: string
+  name: was_onboarded
+  sql: case when {intro_at} is null and {intro_declined_at} is null then 'No'  when {intro_at}
+    is null and {intro_declined_at} is not null then 'Declined'  else 'Yes'  end
+  features:
+  - feature: intro_at
+    alias: null
+  - feature: intro_declined_at
+    alias: null
+- type: formula
+  data_type: string
+  name: days_to_onboard
+  sql: datediff('day',{activated_at}, coalesce({intro_at},{intro_declined_at}))
+  features:
+  - feature: intro_at
+    alias: null
+  - feature: intro_declined_at
+    alias: null
+  - feature: activated_at
+    alias: null
+- type: field
+  name: first_job_leg_date
+  data_type: datetime
+  asset: networx_prod.core.sale_lifetime__legs
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_job_leg_date
+- type: field
+  name: first_job_leg_id
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__legs
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_job_leg_id
+- type: field
+  name: first_lcr_date
+  data_type: datetime
+  asset: networx_prod.core.sale_lifetime__legs
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_lcr_date
+- type: field
+  name: first_lcr_status
+  data_type: string
+  asset: networx_prod.core.sale_lifetime__legs
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_lcr_status
+- type: field
+  name: first_leg_lcr_status
+  data_type: string
+  asset: networx_prod.core.sale_lifetime__legs
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_leg_lcr_status
+- type: field
+  name: first_leg_received_date
+  data_type: datetime
+  asset: networx_prod.core.sale_lifetime__legs
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_leg_received_date
+- type: metric
+  name: first_activated_at
+  data_type: number
+  asset: product
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - 'True'
+  - type: field
+    field: client_activation_id
+    operator: is_set
+    values: null
+  measure: first_sale_date
+- type: metric
+  name: sale_otc_for_budget
+  data_type: number
+  asset: product
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - 'True'
+  - type: field
+    field: client_activation_id
+    operator: is_set
+    values: null
+  measure: otc_for_budget
+- type: metric
+  name: sale_total_commission_amount
+  data_type: number
+  asset: product
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - 'True'
+  - type: field
+    field: client_activation_id
+    operator: is_set
+    values: null
+  measure: total_commission_amount
+- type: metric
+  name: sale_ic_amount
+  data_type: number
+  asset: product
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - 'True'
+  - type: field
+    field: client_activation_id
+    operator: is_set
+    values: null
+  measure: ic_amount
+- type: metric
+  name: sale_extra_credit
+  data_type: number
+  asset: product
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - 'True'
+  - type: field
+    field: client_activation_id
+    operator: is_set
+    values: null
+  measure: extra_credit
+- type: metric
+  name: sale_signup_fee
+  data_type: number
+  asset: product
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - 'True'
+  - type: field
+    field: client_activation_id
+    operator: is_set
+    values: null
+  measure: signup_fee
+- type: metric
+  name: sale_signup_discount
+  data_type: number
+  asset: product
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - 'True'
+  - type: field
+    field: client_activation_id
+    operator: is_set
+    values: null
+  measure: signup_discount
+- type: metric
+  name: sale_signup_budget
+  data_type: number
+  asset: product
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - 'True'
+  - type: field
+    field: client_activation_id
+    operator: is_set
+    values: null
+  measure: signup_budget
+- type: metric
+  name: sale_product_count
+  data_type: number
+  asset: product
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - 'True'
+  - type: field
+    field: client_activation_id
+    operator: is_set
+    values: null
+  measure: count_product_id
+- type: metric
+  name: sale_signup_cycle
+  data_type: number
+  asset: product
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - 'True'
+  - type: field
+    field: client_activation_id
+    operator: is_set
+    values: null
+  measure: average_signup_cycle
+- type: metric
+  name: sale_signup_network_priority_id
+  data_type: number
+  asset: product
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - 'True'
+  - type: field
+    field: client_activation_id
+    operator: is_set
+    values: null
+  measure: main_signup_network_priority_id
+- type: metric
+  name: activated_with_prepaid_card
+  data_type: number
+  asset: product
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - 'True'
+  - type: field
+    field: client_activation_id
+    operator: is_set
+    values: null
+  measure: has_activated_with_prepaid_card
+- type: metric
+  name: signup_product_types
+  data_type: number
+  asset: product
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - 'True'
+  - type: field
+    field: client_activation_id
+    operator: is_set
+    values: null
+  measure: signup_product_types
+- type: metric
+  name: sale_product_abbreviation
+  data_type: number
+  asset: product
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - 'True'
+  - type: field
+    field: client_activation_id
+    operator: is_set
+    values: null
+  measure: product_abbreviation
+- type: formula
+  data_type: string
+  name: sale_signup_budget_group
+  sql: case when {sale_signup_budget} is null then '$0-$349' when {sale_signup_budget} < 350 then '$0-$349' when {sale_signup_budget} = 350 
+      then '$350' when {sale_signup_budget} < 500 then '$351-$499' when {sale_signup_budget} = 500 then '$500' when {sale_signup_budget}
+      < 651 then '$501-$650' when {sale_signup_budget} < 1000 then '$651-$999' else '≥$1000' end
+  features:
+  - feature: sale_signup_budget
+    alias: null
+- type: first_last
+  name: abbreviation
+  data_type: string
+  asset: product
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - 'True'
+  - type: field
+    field: client_activation_id
+    operator: is_set
+    values: null
+  options:
+    method: first
+    sort_by: product_id
+    field: abbreviation
+    data_type: null
+- type: first_last
+  name: signup_cycle
+  data_type: number
+  asset: product
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: is_sale_product
+    operator: is
+    values:
+    - 'True'
+  - type: field
+    field: client_activation_id
+    operator: is_set
+    values: null
+  options:
+    method: first
+    sort_by: product_id
+    field: signup_cycle
+    data_type: null
+- type: formula
+  data_type: string
+  name: signup_type
+  sql: concat({abbreviation}, {signup_cycle})
+  features:
+  - feature: abbreviation
+    alias: null
+  - feature: signup_cycle
+    alias: null
+- type: field
+  name: sale_signup_network
+  data_type: string
+  asset: networx_src.networx_global.ng_networks
+  join_name: null
+  time_field: null
+  filters: []
+  field: name
+- type: field
+  name: first_30_active_demand
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__products_daily
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_30_active_demand
+- type: field
+  name: first_30_decline_demand
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__products_daily
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_30_decline_demand
+- type: field
+  name: first_30_delivered_revenue
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__products_daily
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_30_delivered_revenue
+- type: field
+  name: first_30_total_demand
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__products_daily
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_30_total_demand
+- type: field
+  name: last_30_delivered_revenue
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__products_daily
+  join_name: null
+  time_field: null
+  filters: []
+  field: last_30_delivered_revenue
+- type: field
+  name: post_90_delivered_revenue
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__products_daily
+  join_name: null
+  time_field: null
+  filters: []
+  field: post_90_delivered_revenue
+- type: formula
+  data_type: string
+  name: first_30_active_fulfillment
+  sql: case when {first_30_active_demand} != 0 then {first_30_delivered_revenue} /{first_30_active_demand} end
+  features:
+  - feature: first_30_active_demand
+    alias: null
+  - feature: first_30_delivered_revenue
+    alias: null
+- type: formula
+  data_type: string
+  name: first_30_total_realization
+  sql: case when {first_30_total_demand} != 0 then {first_30_delivered_revenue} / {first_30_total_demand} end
+  features:
+  - feature: first_30_delivered_revenue
+    alias: null
+  - feature: first_30_total_demand
+    alias: null
+- type: field
+  name: avg_mo_spend_l12_rank
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: avg_mo_spend_l12_rank
+- type: field
+  name: avg_mo_spend_l24_rank
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: avg_mo_spend_l24_rank
+- type: field
+  name: avg_mo_spend_last12
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: avg_mo_spend_last12
+- type: field
+  name: avg_mo_spend_last24
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: avg_mo_spend_last24
+- type: field
+  name: avg_mo_spend_last3
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: avg_mo_spend_last3
+- type: field
+  name: count_charges_last12
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: count_charges_last12
+- type: field
+  name: count_charges_last24
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: count_charges_last24
+- type: field
+  name: count_charges_last3
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: count_charges_last3
+- type: field
+  name: count_charges_lifetime
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: count_charges_lifetime
+- type: field
+  name: count_recurring_charges_lifetime
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: count_recurring_charges_lifetime
+- type: field
+  name: lifetime_row_count
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: lifetime_row_count
+- type: field
+  name: lifetime_spend
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: lifetime_spend
+- type: field
+  name: lifetime_spend_rank
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: lifetime_spend_rank
+- type: field
+  name: percentile_last12_group
+  data_type: string
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: percentile_last12_group
+- type: field
+  name: percentile_last12_spend
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: percentile_last12_spend
+- type: field
+  name: percentile_lifetime
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: percentile_lifetime
+- type: field
+  name: percentile_lifetime_group
+  data_type: string
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: percentile_lifetime_group
+- type: field
+  name: spend_day0
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: spend_day0
+- type: field
+  name: spend0_30
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: spend0_30
+- type: field
+  name: spend12
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: spend12
+- type: field
+  name: spend3
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: spend3
+- type: field
+  name: spend31_60
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: spend31_60
+- type: field
+  name: spend6
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: spend6
+- type: field
+  name: spend61_90
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: spend61_90
+- type: field
+  name: spend_final_3_months
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: spend_final_3_months
+- type: field
+  name: spend_last12
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: spend_last12
+- type: field
+  name: spend_last24
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: spend_last24
+- type: field
+  name: spend_last3
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: spend_last3
+- type: field
+  name: spend_last30_days
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__charges
+  join_name: null
+  time_field: null
+  filters: []
+  field: spend_last30_days
+- type: formula
+  data_type: string
+  name: spend3_group
+  sql: case when {spend3} is null then '9. Missing' when {spend3} > 12499 then
+    '0. Elite ($12.5K+)' when {spend3} > 4999 then '1. Mega ($5K+)' when
+    {spend3} > 2499 then '2. Super ($2.5K+)' when {spend3} > 1249 then '3. Grande
+    ($1.25K+)' when {spend3} > 499 then '4. Big ($500+)' when {spend3}
+    > 249 then '5. Small ($250+)' when {spend3} > 99 then '6. Little ($100+)' when
+    {spend3} > 1 then '7. Micro ($1+)' when {spend3} <= 0 then '8. Zero ($0-)' end
+  features:
+  - feature: spend3
+    alias: null
+- type: formula
+  data_type: string
+  name: spend12_group
+  sql: case when {spend12} is null then '9. Missing'  when {spend12} > 49999 then
+    '0. Elite ($50K+)' when {spend12} > 19999 then '1. Mega ($20K+)' when
+    {spend12} > 9999 then '2. Super ($10K+)' when {spend12} > 4999 then '3. Grande
+    ($5K+)' when {spend12} > 1999 then '4. Big ($2K+)' when {spend12}
+    > 999 then '5. Small ($250+)' when {spend12} > 499 then '6. Little ($500+)' when
+    {spend12} > 1 then '7. Micro ($1+)' when {spend12} <= 0 then '8. Zero ($0-)' end
+  features:
+  - feature: spend12
+    alias: null
+- type: formula
+  data_type: string
+  name: lifetime_spend_group
+  sql: case when {lifetime_spend} is null then '9. Missing' when {lifetime_spend}
+      > 999999 then '0. Elite ($1M+)' when {lifetime_spend} > 499999 then '1.Mega ($500K+)' 
+      when {lifetime_spend} > 99999 then '2. Super ($100K+)' when {lifetime_spend} > 49999 then '3. Grande ($50K+)' 
+      when {lifetime_spend} > 19999 then '4. Big ($20K+)' when {lifetime_spend} > 4999 then '5. Small ($5K+)'  
+      when {lifetime_spend} > 999 then '6. Little ($1K+)' when {lifetime_spend} > 1 then '7. Micro ($1+)'
+      when {lifetime_spend} <= 0 then '8. Zero ($0-)' end
+  features:
+  - feature: lifetime_spend
+    alias: null
+- type: field
+  name: first_30days_cancel_requests
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__cancel_request
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_30days_cancel_requests
+- type: field
+  name: first_cancel_request
+  data_type: datetime
+  asset: networx_prod.core.sale_lifetime__cancel_request
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_cancel_request
+- type: field
+  name: lost_cancel_request_agent
+  data_type: string
+  asset: networx_prod.core.sale_lifetime__cancel_request
+  join_name: null
+  time_field: null
+  filters: []
+  field: lost_cancel_request_agent
+- type: formula
+  data_type: string
+  name: days_to_first_cr
+  sql: datediff('day', {activated_at}, {first_cancel_request})
+  features:
+  - feature: first_cancel_request
+    alias: null
+  - feature: activated_at
+    alias: null
+- type: field
+  name: enterprise_pro_id
+  data_type: number
+  asset: client
+  join_name: direct_client_sale
+  time_field: null
+  filters: []
+  field: enterprise_pro_id
+- type: field
+  name: enterprise_pro_name
+  data_type: string
+  asset: client
+  join_name: direct_client_sale
+  time_field: null
+  filters: []
+  field: enterprise_pro_name
+- type: formula
+  data_type: string
+  name: first_ep_sale
+  sql: min({activated_at}) over (partition by {enterprise_pro_id})
+  features:
+  - feature: enterprise_pro_id
+    alias: null
+  - feature: activated_at
+    alias: null
+- type: field
+  name: agent_earning_type
+  data_type: string
+  asset: networx_prod.finance.cac_lifetime
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: cost_date
+    operator: gte
+    values:
+    - '2022-12-18'
+  field: agent_earning_type
+- type: field
+  name: _amount
+  data_type: string
+  asset: networx_prod.finance.cac_lifetime
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: cost_date
+    operator: gte
+    values:
+    - '2022-12-18'
+  field: amount
+- type: field
+  name: cost_date
+  data_type: string
+  asset: networx_prod.finance.cac_lifetime
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: cost_date
+    operator: gte
+    values:
+    - '2022-12-18'
+  field: cost_date
+- type: field
+  name: cost_type
+  data_type: string
+  asset: networx_prod.finance.cac_lifetime
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: cost_date
+    operator: gte
+    values:
+    - '2022-12-18'
+  field: cost_type
+- type: field
+  name: incoming_phone_call_duration_90
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__phone_call
+  join_name: null
+  time_field: null
+  filters: []
+  field: incoming_phone_call_duration_90
+- type: field
+  name: incoming_phone_calls_90
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__phone_call
+  join_name: null
+  time_field: null
+  filters: []
+  field: incoming_phone_calls_90
+- type: field
+  name: outgoing_phone_call_duration_90
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__phone_call
+  join_name: null
+  time_field: null
+  filters: []
+  field: outgoing_phone_call_duration_90
+- type: field
+  name: outgoing_phone_calls_90
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__phone_call
+  join_name: null
+  time_field: null
+  filters: []
+  field: outgoing_phone_calls_90
+- type: field
+  name: phone_call_duration_90
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__phone_call
+  join_name: null
+  time_field: null
+  filters: []
+  field: phone_call_duration_90
+- type: field
+  name: phone_calls_90
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__phone_call
+  join_name: null
+  time_field: null
+  filters: []
+  field: phone_calls_90
+- type: formula
+  data_type: string
+  name: days_to_first_job
+  sql: datediff('second', {activated_at}, {first_job_leg_date}) / (60*60*24)
+  features:
+  - feature: first_job_leg_date
+    alias: null
+  - feature: activated_at
+    alias: null
+- type: formula
+  data_type: string
+  name: first_30days_lcr_perc
+  sql: case when {first_30days_delivered_leads} is null or {first_30days_delivered_leads}
+    = 0 then 0 else coalesce({first_30days_lcr_submitted},0)/{first_30days_delivered_leads}
+    end
+  features:
+  - feature: first_30days_lcr_submitted
+    alias: null
+  - feature: first_30days_delivered_leads
+    alias: null
+- type: formula
+  data_type: string
+  name: days_to_first_lcr
+  sql: datediff('day', {activated_at}, {first_lcr_date})
+  features:
+  - feature: first_lcr_date
+    alias: null
+  - feature: activated_at
+    alias: null
+- type: formula
+  data_type: string
+  name: first_30days_credit_perc
+  sql: case when {first_30days_delivered_leads} is null or {first_30days_delivered_leads}
+    = 0 then 0 else coalesce({first_30days_lcr_approved},0)/{first_30days_delivered_leads} end
+  features:
+  - feature: first_30days_lcr_approved
+    alias: null
+  - feature: first_30days_delivered_leads
+    alias: null
+- type: field
+  name: first_30days_pauses
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__pauses
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_30days_pauses
+- type: field
+  name: first_pause
+  data_type: datetime
+  asset: networx_prod.core.sale_lifetime__pauses
+  join_name: null
+  time_field: null
+  filters: []
+  field: first_pause
+- type: field
+  name: total_pauses
+  data_type: number
+  asset: networx_prod.core.sale_lifetime__pauses
+  join_name: null
+  time_field: null
+  filters: []
+  field: total_pauses
+- type: formula
+  data_type: string
+  name: days_to_first_pause
+  sql: datediff('second', {activated_at}, {first_pause}) / (60*60*24)
+  features:
+  - feature: first_pause
+    alias: null
+  - feature: activated_at
+    alias: null
+- type: formula
+  data_type: string
+  name: has_paused
+  sql: case when {total_pauses} > 0 then 'Yes' else 'No' end
+  features:
+  - feature: total_pauses
+    alias: null
+- type: formula
+  data_type: string
+  name: signup_paused
+  sql: case when to_date({first_pause}) = to_date({activated_at}) then 1 else 0 end
+  features:
+  - feature: first_pause
+    alias: null
+  - feature: activated_at
+    alias: null
+- type: formula
+  data_type: string
+  name: days_to_first_leg
+  sql: datediff('day', {activated_at}, {first_leg_received_date})
+  features:
+  - feature: first_leg_received_date
+    alias: null
+  - feature: activated_at
+    alias: null
+- type: formula
+  data_type: string
+  name: received_discount
+  sql: case when ({sale_extra_credit} + {sale_signup_discount})>0 then 'Yes' else 'No'
+    end
+  features:
+  - feature: sale_extra_credit
+    alias: null
+  - feature: sale_signup_discount
+    alias: null
+- type: formula
+  data_type: string
+  name: has_submitted_lcr
+  sql: case when {total_submitted_lcr} > 0 then 'Yes' else 'No' end
+  features:
+  - feature: total_submitted_lcr
+    alias: null
+- type: formula
+  data_type: string
+  name: has_denied_lcr
+  sql: case when {total_denied_lcr} > 0 then 'Yes' else 'No' end
+  features:
+  - feature: total_denied_lcr
+    alias: null
+- type: formula
+  data_type: string
+  name: has_approved_lcr
+  sql: case when {total_approved_lcr} > 0 then 'Yes' else 'No' end
+  features:
+  - feature: total_approved_lcr
+    alias: null
+- type: formula
+  data_type: string
+  name: uses_leg_status
+  sql: case when {total_legs_with_status} > 0 then 'Yes' else 'No' end
+  features:
+  - feature: total_legs_with_status
+    alias: null
+- type: formula
+  data_type: string
+  name: client_sale_designation
+  sql: case when {client_sale_rank} = 1 then 'First' when datediff('day', {last_deactivated_date},
+    {activated_at}) < 181 then 'Reactivation' else 'WasClient' end
+  features:
+  - feature: activated_at
+    alias: null
+  - feature: client_sale_rank
+    alias: null
+  - feature: last_deactivated_date
+    alias: null
+- type: formula
+  data_type: string
+  name: sale_product_type_group
+  sql: case when {sale_product_abbreviation} = 'S' then 'Shared' when
+    {sale_product_abbreviation} in ('NX','PW') then 'Subscription' when
+    {sale_product_abbreviation} = 'E' then 'Exclusive' when {sale_product_abbreviation}
+    in ('PPS','PPE', 'PPE,PPS', 'DC,PPS') then 'PostPay' when {sale_product_abbreviation}
+    in ('DC', 'WS', 'DC/WS') then 'GLS' when {sale_product_abbreviation}
+    in ('GI','FR','PW','C') then 'Legacy' when {sale_product_abbreviation}
+    is null then 'No Type' else 'Mixed' end
+  features:
+  - feature: sale_product_abbreviation
+    alias: null
+- type: formula
+  data_type: string
+  name: sale_charge_group
+  sql: case when {sale_ic_amount} >= 3000 then 'h $3000+' when {sale_ic_amount}
+    >= 1000 then 'g $1000+' when {sale_ic_amount} >= 500 then 'f $500+'  when
+    {sale_ic_amount} >= 250 then 'e $250+' when {sale_ic_amount} >= 100 then
+    'd $100+' when {sale_ic_amount} >= 1 then 'c $1+' when {sale_ic_amount}
+    = 0 then 'b $0'  else 'a No Budget'  end
+  features:
+  - feature: sale_ic_amount
+    alias: null
+- type: formula
+  data_type: string
+  name: uses_contract_amount
+  sql: case when {lifetime_contract_amount_entered} > 0 then 1 else 0 end
+  features:
+  - feature: lifetime_contract_amount_entered
+    alias: null
+- type: formula
+  data_type: string
+  name: uses_contract_amount_last_30
+  sql: case when {last_30_contract_amount_entered} > 0 then 1 else 0 end
+  features:
+  - feature: last_30_contract_amount_entered
+    alias: null
+- type: metric
+  name: marketing_cac_costs
+  data_type: number
+  asset: cac
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: cost_date
+    operator: gte
+    values:
+    - '2022-12-18'
+  measure: marketing_cac_costs
+- type: metric
+  name: agent_cac_costs
+  data_type: number
+  asset: cac
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: cost_date
+    operator: gte
+    values:
+    - '2022-12-18'
+  measure: agent_cac_costs
+- type: metric
+  name: manager_cac_costs
+  data_type: number
+  asset: cac
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: cost_date
+    operator: gte
+    values:
+    - '2022-12-18'
+  measure: manager_cac_costs
+- type: formula
+  data_type: string
+  name: total_cac_costs
+  sql: '{marketing_cac_costs} + {agent_cac_costs} + {manager_cac_costs}'
+  features:
+  - feature: marketing_cac_costs
+    alias: null
+  - feature: agent_cac_costs
+    alias: null
+  - feature: manager_cac_costs
+    alias: null
+- type: metric
+  name: bonus_cac_costs
+  data_type: number
+  asset: cac
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: cost_date
+    operator: gte
+    values:
+    - '2022-12-18'
+  measure: bonus_cac_costs
+- type: metric
+  name: commission_cac_costs
+  data_type: number
+  asset: cac
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: cost_date
+    operator: gte
+    values:
+    - '2022-12-18'
+  measure: commission_cac_costs
+- type: metric
+  name: non_bonus_commission_cac_costs
+  data_type: number
+  asset: cac
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: cost_date
+    operator: gte
+    values:
+    - '2022-12-18'
+  measure: non_bonus_commission_cac_costs
+- type: metric
+  name: marketing_cac_including_detached_costs
+  data_type: number
+  asset: cac
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: cost_date
+    operator: gte
+    values:
+    - '2022-12-18'
+  measure: marketing_cac_including_detached_costs
+- type: metric
+  name: agent_cac_including_detached_costs
+  data_type: number
+  asset: cac
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: cost_date
+    operator: gte
+    values:
+    - '2022-12-18'
+  measure: agent_cac_including_detached_costs
+- type: metric
+  name: manager_cac_including_detached_costs
+  data_type: number
+  asset: cac
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: cost_date
+    operator: gte
+    values:
+    - '2022-12-18'
+  measure: manager_cac_including_detached_costs
+- type: formula
+  data_type: string
+  name: total_cac_including_detached_costs
+  sql: '{marketing_cac_including_detached_costs} + {agent_cac_including_detached_costs}
+    + {manager_cac_including_detached_costs}'
+  features:
+  - feature: marketing_cac_including_detached_costs
+    alias: null
+  - feature: agent_cac_including_detached_costs
+    alias: null
+  - feature: manager_cac_including_detached_costs
+    alias: null
+- type: metric
+  name: bonus_cac_including_detached_costs
+  data_type: number
+  asset: cac
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: cost_date
+    operator: gte
+    values:
+    - '2022-12-18'
+  measure: bonus_cac_including_detached_costs
+- type: metric
+  name: commission_cac_including_detached_costs
+  data_type: number
+  asset: cac
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: cost_date
+    operator: gte
+    values:
+    - '2022-12-18'
+  measure: commission_cac_including_detached_costs
+- type: metric
+  name: non_bonus_commission_cac_including_detached_costs
+  data_type: number
+  asset: cac
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: cost_date
+    operator: gte
+    values:
+    - '2022-12-18'
+  measure: non_bonus_commission_cac_including_detached_costs
+- type: metric
+  name: total_leg_cost
+  data_type: number
+  asset: leg
+  join_name: null
+  time_field: null
+  filters: []
+  measure: leg_cost
+- type: metric
+  name: client_current_budget
+  data_type: number
+  asset: product
+  join_name: null
+  time_field: null
+  filters: []
+  measure: client_current_budget
+
+related_assets:
+  networx_prod.core.sale_lifetime__pauses:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: id
+        destination: sale_id
+        operator: equal
+  networx_prod.core.sale_lifetime__phone_call:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: id
+        destination: sale_id
+        operator: equal
+  networx_prod.finance.cac_lifetime:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: id
+        destination: sale_id
+        operator: equal
+  networx_prod.core.sale_lifetime__cancel_request:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: id
+        destination: sale_id
+        operator: equal
+  networx_prod.core.sale_lifetime__charges:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: id
+        destination: sale_id
+        operator: equal
+  networx_prod.core.sale_lifetime__products_daily:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: id
+        destination: sale_id
+        operator: equal
+  networx_src.networx_global.ng_networks:
+    relationship: many_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: sale_signup_network_priority_id
+        destination: priority_id
+        operator: equal
+  networx_prod.core.sale_lifetime__legs:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: id
+        destination: sale_id
+        operator: equal
+  networx_prod.core.sale_dim__previous_blacklisting:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: id
+        destination: sale_id
+        operator: equal
+  networx_prod.core.sale_dim__deactivation:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: client_id
+        destination: client_id
+        operator: equal
+      - source: id
+        destination: sale_id
+        operator: equal
+  networx_prod.core.sale_dim__history:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: client_id
+        destination: client_id
+        operator: equal
+      - source: id
+        destination: sale_id
+        operator: equal
+  networx_prod.core.sale_dim__item_history:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: client_id
+        destination: client_id
+        operator: equal
+      - source: id
+        destination: sale_id
+        operator: equal
+  networx_src.networx_global.ng_item_history:
+    relationship: one_to_many
+    joins:
+    - default: true
+      type: sql
+      sql: '{source}.{client_id} = {destination}.{client_id} and {destination}.{created_at}
+        between {source}.{activated_at} and dateadd(day, 30, {source}.{activated_at})'
+  networx_src.networx_global.ng_clients_history:
+    relationship: many_to_many
+    joins:
+    - default: true
+      type: sql
+      sql: '{source}.{client_id} = {destination}.{client_id} and {destination}.{created_at}
+        between {source}.{activated_at} and dateadd(day, 30, {source}.{activated_at})'
+    - name: standard_join
+      default: false
+      type: fields
+      fields:
+      - source: client_id
+        destination: client_id
+        operator: equal
+  networx_prod.core.sale_dim__base:
+    relationship: one_to_one
+    joins:
+    - default: true
+      type: fields
+      fields:
+      - source: id
+        destination: id
+        operator: equal

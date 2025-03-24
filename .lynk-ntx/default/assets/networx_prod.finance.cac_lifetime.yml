@@ -1,0 +1,28 @@
+asset: networx_prod.finance.cac_lifetime
+
+business_keys:
+- inquiry_ticket_id
+- agent_earning_type
+- agent_group
+- agent_id
+- agent_name
+- agent_pay_id
+- agent_team
+- agent_unit
+- amount
+- campaign_id
+- cost_date
+- cost_type
+- inquiry_created_network
+- sale_id
+- tracker_type
+
+description: ''
+
+measures:
+- name: count_cac
+  description: ''
+  sql: count(*)
+
+defaults:
+  time_field: cost_date

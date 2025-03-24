@@ -1,0 +1,16 @@
+asset: networx_src.networx_global.ng_feedback
+
+business_keys: []
+
+description: ''
+
+measures:
+- name: has_feedback
+  description: ''
+  sql: '1'
+- name: count_feedback
+  description: ''
+  sql: count(*)
+- name: feedback_date
+  description: ''
+  sql: min({created_at})

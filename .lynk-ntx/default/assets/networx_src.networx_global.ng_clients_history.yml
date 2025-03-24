@@ -1,0 +1,13 @@
+asset: networx_src.networx_global.ng_clients_history
+
+business_keys: []
+
+description: ''
+
+measures:
+- name: discount_charge_agent
+  description: ''
+  sql: max_by({agent_id}, {id})
+- name: discount_approve_date
+  description: ''
+  sql: max_by({approved}, {id})
