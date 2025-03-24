@@ -1,8 +1,0 @@
-dim_dates:
-  ref: db.schema.dim_dates_laila
-  fields:
-    day: day_matan
-    week: week
-    month: month
-    quarter: quarter
-    year: year

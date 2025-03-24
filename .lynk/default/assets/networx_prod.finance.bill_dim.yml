@@ -1,8 +1,0 @@
-asset: networx_prod.finance.bill_dim
-
-business_keys:
-- bill_id
-
-description: ''
-
-measures: []

@@ -1,0 +1,195 @@
+name: customer
+
+description: a customer is a nice person who purchased at least once from our online
+  store
+
+key_table: demo_dev.tpch_sf1.customer
+
+aliases: []
+
+features:
+- type: first_last
+  name: first_order_ship_priority
+  data_type: null
+  asset: demo_dev.tpch_sf1.orders
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: first
+    sort_by: order_date
+    field: iff(ship_priority = 0, 'high', 'low')
+    data_type: null
+- type: metric
+  name: count_orders
+  data_type: null
+  asset: demo_dev.tpch_sf1.orders
+  join_name: null
+  time_field: null
+  filters: []
+  measure: count_orders
+- type: metric
+  name: total_spending
+  data_type: null
+  asset: demo_dev.tpch_sf1.orders
+  join_name: null
+  time_field: null
+  filters: []
+  measure: total_order_amout
+- type: first_last
+  name: clerk_of_last_order
+  data_type: null
+  asset: demo_dev.tpch_sf1.orders
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: order_date
+    field: clerk
+    data_type: null
+- type: first_last
+  name: order_priority_of_last_order
+  data_type: null
+  asset: demo_dev.tpch_sf1.orders
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: order_date
+    field: order_priority
+    data_type: null
+- type: metric
+  name: average_price
+  data_type: null
+  asset: demo_dev.tpch_sf1.orders
+  join_name: null
+  time_field: null
+  filters: []
+  measure: average_price
+- type: metric
+  name: total_order_lines
+  data_type: null
+  asset: order
+  join_name: null
+  time_field: null
+  filters: []
+  measure: total_order_lines
+- type: first_last
+  name: first_order_date
+  data_type: null
+  asset: order
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: first
+    sort_by: order_date
+    field: order_date
+    data_type: null
+- type: metric
+  name: average_line_items_per_order
+  data_type: null
+  asset: order
+  join_name: null
+  time_field: null
+  filters: []
+  measure: average_order_lines
+- type: first_last
+  name: last_order_date
+  data_type: null
+  asset: order
+  join_name: null
+  time_field: null
+  filters: []
+  options:
+    method: last
+    sort_by: order_date
+    field: order_date
+    data_type: null
+- type: metric
+  name: m-measure-no-filters
+  data_type: null
+  asset: demo_dev.tpch_sf1.device
+  join_name: null
+  time_field: null
+  filters: []
+  measure: m-measure-1
+- type: metric
+  name: matan-filters
+  data_type: null
+  asset: demo_dev.tpch_sf1.device
+  join_name: null
+  time_field: null
+  filters:
+  - type: field
+    field: customerid
+    operator: is
+    values:
+    - 3
+  measure: m-measure-1
+- type: metric
+  name: aol
+  data_type: number
+  asset: order
+  join_name: customerOrder2
+  time_field: null
+  filters: []
+  measure: average_order_lines
+- type: metric
+  name: co_123
+  data_type: string
+  asset: demo_dev.tpch_sf1.orders
+  join_name: all_orders
+  time_field: null
+  filters:
+  - type: field
+    field: comment
+    operator: is
+    values:
+    - '234'
+  measure: count_orders
+- type: metric
+  name: ap_123
+  data_type: number
+  asset: demo_dev.tpch_sf1.orders
+  join_name: all_orders
+  time_field: order_date
+  filters:
+  - type: field
+    field: comment
+    operator: is
+    values:
+    - '234'
+  measure: average_price
+- type: formula
+  data_type: number
+  name: test_formula
+  sql: avg(account_balance)
+  features:
+  - feature: account_balance
+    alias: null
+
+related_assets:
+  demo_dev.tpch_sf1.customer:
+    relationship: one_to_one
+    joins:
+    - name: default
+      default: true
+      type: sql
+      sql: '{source}.customer_id = {destination}.customer_id'
+  demo_dev.tpch_sf1.orders:
+    relationship: one_to_many
+    joins:
+    - name: all_orders
+      default: true
+      type: sql
+      sql: '{source}.customer_id = {destination}.customer_id'
+  demo_dev.tpch_sf1.device:
+    relationship: one_to_one
+    joins:
+    - name: all_devices
+      default: true
+      type: sql
+      sql: '{source}.customer_id = {destination}.customerid'

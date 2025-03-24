@@ -1,9 +1,0 @@
-asset: networx_prod.core.legs_dim
-
-business_key: 
-- leg_id
-
-measures:
-- name: total_legs
-  description: ''
-  sql: count({leg_id})
