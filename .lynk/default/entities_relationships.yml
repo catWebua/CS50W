@@ -1,25 +1,229 @@
 relationships:
-  customer-device:
+  agent-bill:
     relationship: one_to_many
-    joins: []
-  customer-nation:
+    joins:
+    - name: collected_agent
+      default: true
+      type: fields
+      fields:
+      - source: agent_id
+        destination: collected_agent_id
+        operator: equal
+    - name: deactivated_agent
+      default: false
+      type: fields
+      fields:
+      - source: agent_id
+        destination: deactivated_agent_id
+        operator: equal
+    - name: straiht_join
+      default: false
+      type: fields
+      fields:
+      - source: agent_id
+        destination: agent_id
+        operator: equal
+  agent-product:
+    relationship: one_to_many
+    joins:
+    - name: manager_id
+      default: false
+      type: fields
+      fields:
+      - source: agent_id
+        destination: manager_id
+        operator: equal
+    - name: agent_id
+      default: true
+      type: fields
+      fields:
+      - source: agent_id
+        destination: agent_id
+        operator: equal
+  bill-payment:
+    relationship: one_to_many
+    joins:
+    - name: null
+      default: true
+      type: sql
+      sql: '{source}.{payment_id} = {destination}.{payment_id}'
+  bill-sale:
     relationship: many_to_one
     joins:
     - name: default
       default: true
       type: fields
       fields:
-      - source: nation_id
-        destination: nation_id
+      - source: sale_id
+        destination: id
         operator: equal
-  customer-order:
+    - name: post_sale
+      default: false
+      type: fields
+      fields:
+      - source: sale_id
+        destination: id
+        operator: equal
+      - source: created_at
+        destination: activated_at
+        operator: gte
+      - source: created_at
+        destination: deactivated_at
+        operator: lte
+    - name: standrd
+      default: false
+      type: fields
+      fields:
+      - source: client_id
+        destination: client_id
+        operator: equal
+      - source: sale_id
+        destination: id
+        operator: equal
+  bill-bill_breakdown:
     relationship: one_to_many
     joins:
-    - name: 
+    - name: null
       default: true
       type: sql
-      sql: '{source}.{customer_id} = {destination}.{customer_id}'
-    - name: customerOrder2
-      default: false
+      sql: '{source}.{bill_id} = {destination}.{bill_id}'
+  chargeback_ticket-payment:
+    relationship: many_to_one
+    joins:
+    - name: payments_chargeback
+      default: true
+      type: fields
+      fields:
+      - source: payment_id
+        destination: payment_id
+        operator: equal
+  product-sale:
+    relationship: many_to_many
+    joins:
+    - name: null
+      default: true
       type: sql
-      sql: '{source}.{customer_id} = {destination}.{customer_id}'
+      sql: '{source}.{client_activation_id} = {destination}.{id}'
+  bill-payment_dim_new:
+    relationship: one_to_many
+    joins:
+    - name: null
+      default: true
+      type: fields
+      fields:
+      - source: bill_id
+        destination: bill_id
+        operator: equal
+  bill-bill_breakdown_dim_new:
+    relationship: one_to_one
+    joins:
+    - name: null
+      default: true
+      type: fields
+      fields:
+      - source: bill_id
+        destination: id
+        operator: equal
+  client-phone_call:
+    relationship: one_to_many
+    joins:
+    - name: null
+      default: true
+      type: fields
+      fields:
+      - source: client_id
+        destination: client_id
+        operator: equal
+  client-product:
+    relationship: one_to_many
+    joins:
+    - name: null
+      default: true
+      type: fields
+      fields:
+      - source: client_id
+        destination: client_id
+        operator: equal
+  client-sale:
+    relationship: one_to_many
+    joins:
+    - name: client_sale_lookup
+      default: true
+      type: lookup
+      lookup:
+      - destination: networx_prod.core.product_dim
+        type: fields
+        fields:
+        - source: client_id
+          destination: client_id
+          operator: equal
+      - destination: sale
+        type: sql
+        sql: '{source}.{client_activation_id} = {destination}.{id} and {source}.{activated_at}
+          is not null'
+    - name: direct_client_sale
+      default: false
+      type: fields
+      fields:
+      - source: client_id
+        destination: client_id
+        operator: equal
+  leg-sale:
+    relationship: many_to_one
+    joins:
+    - name: null
+      default: true
+      type: fields
+      fields:
+      - source: sale_id
+        destination: id
+        operator: equal
+  cac-sale:
+    relationship: many_to_one
+    joins:
+    - name: null
+      default: true
+      type: fields
+      fields:
+      - source: sale_id
+        destination: id
+        operator: equal
+  lead-leg:
+    relationship: one_to_many
+    joins:
+    - name: null
+      default: true
+      type: fields
+      fields:
+      - source: lead_id
+        destination: lead_id
+        operator: equal
+  lead-product:
+    relationship: one_to_many
+    joins:
+    - name: lead_product_lookup
+      default: true
+      type: lookup
+      lookup:
+      - destination: networx_src.networx_global.ng_potential_products_for_lead
+        type: fields
+        fields:
+        - source: lead_id
+          destination: lead_id
+          operator: equal
+      - destination: product
+        type: fields
+        fields:
+        - source: product_id
+          destination: product_id
+          operator: equal
+  affiliate-agent:
+    relationship: many_to_one
+    joins:
+    - name: null
+      default: true
+      type: fields
+      fields:
+      - source: agent_id
+        destination: agent_id
+        operator: equal
